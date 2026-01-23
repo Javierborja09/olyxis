@@ -1,19 +1,20 @@
 {
-    "name": "Javierborja09/olyxis",
-    "description": "Framework PHP MVC",
-    "type": "library", 
-    "license": "MIT",
     "require": {
         "php": ">=8.0"
+    },
+    "repositories": [
+        {
+            "type": "path",
+            "url": "olyxis"
+        }
+    ],
+    "require-dev": {
+        "pushofdev/miframework": "@dev"
     },
     "autoload": {
         "psr-4": {
             "Framework\\": "Framework/",
             "App\\": "app/"
         }
-    },
-    "bin": ["bin/olyxis"],
-    "scripts": {
-        "serve": "php bin/olyxis serve"
     }
 }

@@ -6,6 +6,7 @@ $vendorDir = dirname(__DIR__);
 $baseDir = dirname($vendorDir);
 
 return array(
+    'App\\Controllers\\HomeController' => $baseDir . '/app/Controllers/HomeController.php',
     'Composer\\InstalledVersions' => $vendorDir . '/composer/InstalledVersions.php',
     'Framework\\Console\\Command' => $baseDir . '/Framework/Console/Command.php',
     'Framework\\Console\\Commands\\InitCommand' => $baseDir . '/Framework/Console/Commands/InitCommand.php',
@@ -13,6 +14,7 @@ return array(
     'Framework\\Console\\Commands\\ServeCommand' => $baseDir . '/Framework/Console/Commands/ServeCommand.php',
     'Framework\\Core\\Application' => $baseDir . '/Framework/Core/Application.php',
     'Framework\\Core\\Controller' => $baseDir . '/Framework/Core/Controller.php',
+    'Framework\\Core\\Database' => $baseDir . '/Framework/Core/Database.php',
     'Framework\\Core\\EventDispatcher' => $baseDir . '/Framework/Core/EventDispatcher.php',
     'Framework\\Core\\Request' => $baseDir . '/Framework/Core/Request.php',
     'Framework\\Core\\Response' => $baseDir . '/Framework/Core/Response.php',

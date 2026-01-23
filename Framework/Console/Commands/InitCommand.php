@@ -21,9 +21,6 @@ class InitCommand extends Command
         $this->copyFrameworkCore();
         $this->createComposerJson();
         $this->createLocalBin();
-        $this->info("\n🔄 Regenerando autoloader...");
-        shell_exec('composer dump-autoload -o');
-        $this->success("Autoloader actualizado correctamente.");
         $this->success("\n¡Proyecto inicializado correctamente! 🎉");
         $this->info("\nPara iniciar el servidor ejecuta:");
         $this->info("   php bin/miframework serve\n");

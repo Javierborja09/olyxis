@@ -29,6 +29,7 @@ class ComposerStaticInit1fc9b22355d8213a0b0e090d8c492abd
     );
 
     public static $classMap = array (
+        'App\\Controllers\\HomeController' => __DIR__ . '/../..' . '/app/Controllers/HomeController.php',
         'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',
         'Framework\\Console\\Command' => __DIR__ . '/../..' . '/Framework/Console/Command.php',
         'Framework\\Console\\Commands\\InitCommand' => __DIR__ . '/../..' . '/Framework/Console/Commands/InitCommand.php',
@@ -36,6 +37,7 @@ class ComposerStaticInit1fc9b22355d8213a0b0e090d8c492abd
         'Framework\\Console\\Commands\\ServeCommand' => __DIR__ . '/../..' . '/Framework/Console/Commands/ServeCommand.php',
         'Framework\\Core\\Application' => __DIR__ . '/../..' . '/Framework/Core/Application.php',
         'Framework\\Core\\Controller' => __DIR__ . '/../..' . '/Framework/Core/Controller.php',
+        'Framework\\Core\\Database' => __DIR__ . '/../..' . '/Framework/Core/Database.php',
         'Framework\\Core\\EventDispatcher' => __DIR__ . '/../..' . '/Framework/Core/EventDispatcher.php',
         'Framework\\Core\\Request' => __DIR__ . '/../..' . '/Framework/Core/Request.php',
         'Framework\\Core\\Response' => __DIR__ . '/../..' . '/Framework/Core/Response.php',
