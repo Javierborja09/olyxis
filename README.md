@@ -87,7 +87,7 @@ Crear archivo `.env`:
 ```env
 DB_HOST=localhost
 DB_PORT=3306
-DB_NAME=mi_framework_db
+DB_NAME=olyxis_db
 DB_USER=root
 DB_PASSWORD=tu_password
 ```
@@ -128,7 +128,7 @@ olyxis/
 │   └── js/
 ├── vendor/              # Dependencias (generado por Composer)
 ├── bin/
-│   └── miframework      # CLI ejecutable
+│   └── olyxis      # CLI ejecutable
 ├── .env                 # Variables de entorno
 └── composer.json        # Dependencias del proyecto
 ```
@@ -140,7 +140,7 @@ olyxis/
 ### Crear un Controlador
 
 ```bash
-php bin/miframework make:controller ProductController
+php bin/olyxis make:controller ProductController
 ```
 
 ### Definir una Ruta
