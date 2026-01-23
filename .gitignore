@@ -1,6 +1,6 @@
 # Dependencias
-vendor/
-composer.lock
+# vendor/
+# composer.lock
 
 # Variables de entorno
 .env
