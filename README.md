@@ -14,9 +14,9 @@ Un framework PHP moderno y ligero construido desde cero, diseñado para facilita
 - Sistema de formularios seguro
 
 ✅ **CLI Tool Potente**
-- `php bin/miframework serve` - Iniciar servidor de desarrollo
-- `php bin/miframework init` - Inicializar nuevos proyectos
-- `php bin/miframework make:controller` - Generar controladores automáticamente
+- `php bin/olyxis serve` - Iniciar servidor de desarrollo
+- `php bin/olyxis init` - Inicializar nuevos proyectos
+- `php bin/olyxis make:controller` - Generar controladores automáticamente
 
 ✅ **Base de Datos Optimizada**
 - PDO con conexiones persistentes
