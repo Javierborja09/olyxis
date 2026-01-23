@@ -64,10 +64,20 @@ git clone https://github.com/Javierborja09/mi-framework.git
 php mi-framework/bin/miframework init
 ```
 
-### 3. Entrar a la carpeta del proyecto
+### 3. Inicializar y nota sobre la carpeta temporal
 
+El comando `php mi-framework/bin/miframework init` copia la estructura del framework en tu carpeta actual. No es necesario ejecutar `cd mi-framework`.
+
+Si no necesitas conservar la carpeta temporal `mi-framework`, puedes eliminarla:
+
+En Linux/macOS:
 ```bash
-cd mi-framework
+rm -r mi-framework
+```
+
+En Windows (PowerShell):
+```powershell
+Remove-Item -Recurse -Force mi-framework
 ```
 
 ### 4. Configurar base de datos (Opcional)
