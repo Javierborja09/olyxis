@@ -1,0 +1,49 @@
+# Dependencias
+vendor/
+composer.lock
+
+# Variables de entorno
+.env
+.env.local
+.env.*.local
+
+# Archivos del sistema
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+*~
+
+# IDEs
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# Logs
+*.log
+logs/
+
+# Caché y temporal
+tmp/
+temp/
+cache/
+.cache
+
+# Bases de datos
+*.sqlite
+*.sqlite3
+*.db
+
+# Node modules (si se usa npm)
+node_modules/
+package-lock.json
+
+# Archivos compilados
+*.class
+*.o
+*.pyc
+
+# Directorios personales
+uploads/
+storage/

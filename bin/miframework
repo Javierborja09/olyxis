@@ -1,0 +1,71 @@
+#!/usr/bin/env php
+<?php
+
+// ============================================
+// Mi Framework CLI
+// ============================================
+
+// Cargar autoloader
+$internalAutoloader = __DIR__ . '/../vendor/autoload.php';
+$currentAutoloader = getcwd() . '/vendor/autoload.php';
+
+if (file_exists($internalAutoloader)) {
+    require $internalAutoloader;
+} elseif (file_exists($currentAutoloader)) {
+    require $currentAutoloader;
+} else {
+    die("❌ Error: No se encontró 'vendor/autoload.php'. Ejecuta 'composer dump-autoload' o 'composer install'.\n");
+}
+
+// Importar comandos disponibles
+use Framework\Console\Commands\InitCommand;
+use Framework\Console\Commands\ServeCommand;
+use Framework\Console\Commands\MakeControllerCommand;
+
+// Obtener comando y argumentos
+$command = $argv[1] ?? 'help';
+$args = array_slice($argv, 2);
+
+// Ejecutar comando según lo solicitado
+switch ($command) {
+    case 'init':
+        $cmd = new InitCommand();
+        $cmd->execute($args);
+        break;
+
+    case 'serve':
+        $cmd = new ServeCommand();
+        $cmd->execute($args);
+        break;
+
+    case 'make:controller':
+        $cmd = new MakeControllerCommand();
+        $cmd->execute($args);
+        break;
+
+    case 'help':
+    default:
+        displayHelp();
+        break;
+}
+
+// ============================================
+// Función auxiliar para mostrar ayuda
+// ============================================
+function displayHelp() {
+    echo "\n";
+    echo "╔════════════════════════════════════════╗\n";
+    echo "║   🚀 Mi Framework CLI v1.0             ║\n";
+    echo "╚════════════════════════════════════════╝\n\n";
+    
+    echo "Comandos disponibles:\n";
+    echo "  ├─ init              Inicializa un nuevo proyecto\n";
+    echo "  ├─ serve             Inicia el servidor de desarrollo\n";
+    echo "  └─ make:controller   Crea un nuevo controlador\n";
+    echo "\n";
+    echo "Ejemplos:\n";
+    echo "  php bin/miframework init\n";
+    echo "  php bin/miframework serve\n";
+    echo "  php bin/miframework make:controller User\n";
+    echo "\n";
+}

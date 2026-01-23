@@ -1,0 +1,19 @@
+{
+    "name": "pushofdev/miframework",
+    "description": "Framework PHP MVC",
+    "type": "library", 
+    "license": "MIT",
+    "require": {
+        "php": ">=8.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Framework\\": "Framework/",
+            "App\\": "app/"
+        }
+    },
+    "bin": ["bin/miframework"],
+    "scripts": {
+        "serve": "php bin/miframework serve"
+    }
+}
