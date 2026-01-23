@@ -66,7 +66,7 @@ php olyxis/bin/olyxis init
 
 ### 3. Inicializar y nota sobre la carpeta temporal
 
-El comando `php olyxis/bin/miframework init` copia la estructura del framework en tu carpeta actual. No es necesario ejecutar `cd olyxis`.
+El comando `php olyxis/bin/olyxis init` copia la estructura del framework en tu carpeta actual. No es necesario ejecutar `cd olyxis`.
 
 Si no necesitas conservar la carpeta temporal `olyxis`, puedes eliminarla:
 
