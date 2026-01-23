@@ -95,7 +95,7 @@ DB_PASSWORD=tu_password
 ### 5. Iniciar servidor
 
 ```bash
-php bin/miframework serve localhost 8000
+php bin/olyxis serve localhost 8000
 ```
 
 Acceder a: http://localhost:8000
