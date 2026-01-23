@@ -64,13 +64,13 @@ class InitCommand extends Command
         if (!is_dir($binDir)) {
             mkdir($binDir, 0777, true);
         }
-        $originalBin = __DIR__ . '/../../../bin/miframework';
-        $newBin = $binDir . '/miframework';
+        $originalBin = __DIR__ . '/../../../bin/olyxis';
+        $newBin = $binDir . '/olyxis';
 
         if (file_exists($originalBin)) {
             copy($originalBin, $newBin);
             chmod($newBin, 0755);
-            $this->info("✔️ Binario local creado en bin/miframework");
+            $this->info("✔️ Binario local creado en bin/olyxis");
         }
     }
 
