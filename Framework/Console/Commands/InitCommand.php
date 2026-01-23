@@ -23,7 +23,7 @@ class InitCommand extends Command
         $this->createLocalBin();
         $this->success("\n¡Proyecto inicializado correctamente! 🎉");
         $this->info("\nPara iniciar el servidor ejecuta:");
-        $this->info("   php bin/miframework serve\n");
+        $this->info("   php bin/olyxis serve\n");
     }
 
     private function copyFrameworkCore()
