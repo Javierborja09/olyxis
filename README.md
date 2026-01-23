@@ -55,7 +55,7 @@ Un framework PHP moderno y ligero construido desde cero, diseñado para facilita
 ### 1. Clonar el repositorio
 
 ```bash
-git clone https://github.com/tu-usuario/mi-framework.git
+git clone https://github.com/Javierborja09/mi-framework.git
 cd mi-framework
 ```
 
