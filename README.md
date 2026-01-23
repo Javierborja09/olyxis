@@ -257,10 +257,10 @@ El framework incluye Tailwind CSS via CDN. Personaliza en `app/Views/layouts/mai
 
 | Comando | Descripción |
 |---------|------------|
-| `php bin/miframework serve` | Iniciar servidor en puerto 8000 |
-| `php bin/miframework serve localhost 3000` | Iniciar en puerto específico |
-| `php bin/miframework init` | Inicializar proyecto |
-| `php bin/miframework make:controller NombreController` | Generar controlador |
+| `php bin/olyxis serve` | Iniciar servidor en puerto 8000 |
+| `php bin/olyxis serve localhost 3000` | Iniciar en puerto específico |
+| `php bin/olyxis init` | Inicializar proyecto |
+| `php bin/olyxis make:controller NombreController` | Generar controlador |
 
 ---
 
@@ -338,9 +338,9 @@ Este proyecto está bajo licencia MIT. Ver archivo `LICENSE` para más detalles.
 
 **Javier Jeanpool Borja Samaniego**
 
-- GitHub: [@tu-usuario](https://github.com/tu-usuario)
+- GitHub: [@JavierBorja09](https://github.com/JavierBorja09)
 - Email: tu-email@ejemplo.com
-- LinkedIn: [Tu Perfil](https://linkedin.com/in/tu-perfil)
+- LinkedIn: [Tu Perfil](https://linkedin.com/in/javierborjasamaniego)
 
 ---
 
