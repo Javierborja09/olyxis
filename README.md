@@ -59,11 +59,13 @@ git clone https://github.com/Javierborja09/mi-framework.git
 cd mi-framework
 ```
 
-### 2. Instalar dependencias
+### 2. Inicializar proyecto (Opcional - para nuevos proyectos)
 
 ```bash
-composer install
+php bin/miframework init
 ```
+
+> **Nota:** El repositorio ya incluye todas las dependencias (vendor/). No necesitas ejecutar `composer install`.
 
 ### 3. Configurar base de datos
 
