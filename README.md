@@ -55,29 +55,29 @@ Un framework PHP moderno y ligero construido desde cero, diseñado para facilita
 ### 1. Clonar el repositorio
 
 ```bash
-git clone https://github.com/Javierborja09/mi-framework.git
+git clone https://github.com/Javierborja09/olyxis.git
 ```
 
 ### 2. Inicializar proyecto (Opcional - para nuevos proyectos)
 
 ```bash
-php mi-framework/bin/miframework init
+php olyxis/bin/olyxis init
 ```
 
 ### 3. Inicializar y nota sobre la carpeta temporal
 
-El comando `php mi-framework/bin/miframework init` copia la estructura del framework en tu carpeta actual. No es necesario ejecutar `cd mi-framework`.
+El comando `php olyxis/bin/miframework init` copia la estructura del framework en tu carpeta actual. No es necesario ejecutar `cd olyxis`.
 
-Si no necesitas conservar la carpeta temporal `mi-framework`, puedes eliminarla:
+Si no necesitas conservar la carpeta temporal `olyxis`, puedes eliminarla:
 
 En Linux/macOS:
 ```bash
-rm -r mi-framework
+rm -r olyxis
 ```
 
 En Windows (PowerShell):
 ```powershell
-Remove-Item -Recurse -Force mi-framework
+Remove-Item -Recurse -Force olyxis
 ```
 
 ### 4. Configurar base de datos (Opcional)
@@ -107,7 +107,7 @@ Acceder a: http://localhost:8000
 ## 📁 Estructura del Proyecto
 
 ```
-mi-framework/
+olyxis/
 ├── app/
 │   ├── Controllers/       # Controladores de la aplicación
 │   ├── Models/           # Modelos de datos
@@ -357,8 +357,8 @@ Este proyecto está bajo licencia MIT. Ver archivo `LICENSE` para más detalles.
 ¿Preguntas o problemas? 
 
 - 📧 Email: soporte@miframework.com
-- 🐛 Issues: [Reportar Bug](https://github.com/tu-usuario/mi-framework/issues)
-- 💬 Discussions: [Discusiones](https://github.com/tu-usuario/mi-framework/discussions)
+- 🐛 Issues: [Reportar Bug](https://github.com/Javierborja09/olyxis/issues)
+- 💬 Discussions: [Discusiones](https://github.com/Javierborja09/olyxis/discussions)
 
 ---
 

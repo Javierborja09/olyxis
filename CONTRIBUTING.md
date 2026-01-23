@@ -99,4 +99,4 @@ public function greet(string $name): string {
 
 ---
 
-**¡Gracias por contribuir a Mi Framework! ⭐**
+**¡Gracias por contribuir a Olyxis Framework! ⭐**

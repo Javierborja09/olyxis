@@ -2,10 +2,9 @@
 <?php
 
 // ============================================
-// Mi Framework CLI
+// Olyxis CLI
 // ============================================
 
-// Cargar autoloader
 $internalAutoloader = __DIR__ . '/../vendor/autoload.php';
 $currentAutoloader = getcwd() . '/vendor/autoload.php';
 
@@ -17,16 +16,13 @@ if (file_exists($internalAutoloader)) {
     die("❌ Error: No se encontró 'vendor/autoload.php'. Ejecuta 'composer dump-autoload' o 'composer install'.\n");
 }
 
-// Importar comandos disponibles
 use Framework\Console\Commands\InitCommand;
 use Framework\Console\Commands\ServeCommand;
 use Framework\Console\Commands\MakeControllerCommand;
 
-// Obtener comando y argumentos
 $command = $argv[1] ?? 'help';
 $args = array_slice($argv, 2);
 
-// Ejecutar comando según lo solicitado
 switch ($command) {
     case 'init':
         $cmd = new InitCommand();
@@ -49,13 +45,10 @@ switch ($command) {
         break;
 }
 
-// ============================================
-// Función auxiliar para mostrar ayuda
-// ============================================
 function displayHelp() {
     echo "\n";
     echo "╔════════════════════════════════════════╗\n";
-    echo "║   🚀 Mi Framework CLI v1.0             ║\n";
+    echo "║   🚀 Olyxis CLI v1.0             ║\n";
     echo "╚════════════════════════════════════════╝\n\n";
     
     echo "Comandos disponibles:\n";
@@ -64,8 +57,8 @@ function displayHelp() {
     echo "  └─ make:controller   Crea un nuevo controlador\n";
     echo "\n";
     echo "Ejemplos:\n";
-    echo "  php bin/miframework init\n";
-    echo "  php bin/miframework serve\n";
-    echo "  php bin/miframework make:controller User\n";
+    echo "  php bin/olyxis init\n";
+    echo "  php bin/olyxis serve\n";
+    echo "  php bin/olyxis make:controller User\n";
     echo "\n";
 }

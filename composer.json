@@ -1,5 +1,5 @@
 {
-    "name": "pushofdev/miframework",
+    "name": "pushofdev/olyxis",
     "description": "Framework PHP MVC",
     "type": "library", 
     "license": "MIT",
@@ -12,8 +12,8 @@
             "App\\": "app/"
         }
     },
-    "bin": ["bin/miframework"],
+    "bin": ["bin/olyxis"],
     "scripts": {
-        "serve": "php bin/miframework serve"
+        "serve": "php bin/olyxis serve"
     }
 }

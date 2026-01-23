@@ -1,14 +1,16 @@
 <?php
+
 namespace Framework\Console\Commands;
 
 use Framework\Console\Command;
 
-class InitCommand extends Command {
-    
-   public function execute(array $args) {
+class InitCommand extends Command
+{
+
+    public function execute(array $args)
+    {
         $this->info("🚀 Inicializando proyecto en: " . getcwd() . "\n");
-        
-        // 1. Crear toda la estructura
+
         $this->createDirectories();
         $this->createConfigFiles();
         $this->createControllers();
@@ -17,23 +19,19 @@ class InitCommand extends Command {
         $this->createAssets();
         $this->createIndexFile();
         $this->copyFrameworkCore();
-        $this->createComposerJson(); 
+        $this->createComposerJson();
         $this->createLocalBin();
-        // --- AQUÍ DEBES PONERLO ---
         $this->info("\n🔄 Regenerando autoloader...");
         shell_exec('composer dump-autoload -o');
         $this->success("Autoloader actualizado correctamente.");
-        // --------------------------
-        
         $this->success("\n¡Proyecto inicializado correctamente! 🎉");
         $this->info("\nPara iniciar el servidor ejecuta:");
         $this->info("   php bin/miframework serve\n");
     }
 
-    private function copyFrameworkCore() {
-        // Ruta de origen: FRAMEWORKWEBPHP/Framework
-        $source = __DIR__ . '/../../'; 
-        // Ruta de destino: mi-nueva-web/Framework
+    private function copyFrameworkCore()
+    {
+        $source = __DIR__ . '/../../';
         $dest = getcwd() . '/Framework';
 
         if ($this->copyRecursive($source, $dest)) {
@@ -41,7 +39,8 @@ class InitCommand extends Command {
         }
     }
 
-    private function copyRecursive($src, $dst) {
+    private function copyRecursive($src, $dst)
+    {
         if (!is_dir($src)) return false;
         if (!is_dir($dst)) mkdir($dst, 0777, true);
 
@@ -59,24 +58,24 @@ class InitCommand extends Command {
         return true;
     }
 
-    private function createLocalBin() {
+    private function createLocalBin()
+    {
         $binDir = getcwd() . '/bin';
         if (!is_dir($binDir)) {
             mkdir($binDir, 0777, true);
         }
-
-        // Copiamos el binario original al nuevo proyecto
         $originalBin = __DIR__ . '/../../../bin/miframework';
         $newBin = $binDir . '/miframework';
 
         if (file_exists($originalBin)) {
             copy($originalBin, $newBin);
-            chmod($newBin, 0755); // Permisos de ejecución
+            chmod($newBin, 0755);
             $this->info("✔️ Binario local creado en bin/miframework");
         }
     }
-    
-    private function createDirectories() {
+
+    private function createDirectories()
+    {
         $dirs = [
             'app/Controllers',
             'app/Models',
@@ -88,7 +87,7 @@ class InitCommand extends Command {
             'public/images',
             'bin'
         ];
-        
+
         foreach ($dirs as $dir) {
             $path = getcwd() . '/' . $dir;
             if (!is_dir($path)) {
@@ -97,15 +96,15 @@ class InitCommand extends Command {
             }
         }
     }
-
-    // Usamos getcwd() en createFile para asegurar que escriba en el proyecto nuevo
-    protected function createFile($file, $content) {
+    protected function createFile($file, $content)
+    {
         $path = getcwd() . '/' . $file;
         file_put_contents($path, $content);
         $this->info("✔️ Archivo creado: $file");
     }
-    
-    private function createConfigFiles() {
+
+    private function createConfigFiles()
+    {
         $routesContent = <<<'PHP'
 <?php
 return [
@@ -120,7 +119,7 @@ return [
 ];
 PHP;
         $this->createFile('config/routes.php', $routesContent);
-        
+
         $appContent = <<<'PHP'
 <?php
 return [
@@ -132,8 +131,9 @@ return [
 PHP;
         $this->createFile('config/app.php', $appContent);
     }
-    
-    private function createControllers() {
+
+    private function createControllers()
+    {
         $homeControllerContent = <<<'PHP'
 <?php
 namespace App\Controllers;
@@ -174,8 +174,9 @@ class HomeController extends Controller {
 PHP;
         $this->createFile('app/Controllers/HomeController.php', $homeControllerContent);
     }
-    
-    private function createViews() {
+
+    private function createViews()
+    {
         $indexView = <<<'PHP'
 <div class="hero">
     <h1><?php echo htmlspecialchars($title); ?></h1>
@@ -202,7 +203,7 @@ PHP;
 </section>
 PHP;
         $this->createFile('app/Views/home/index.php', $indexView);
-        
+
         $aboutView = <<<'PHP'
 <div class="page-header">
     <h1><?php echo htmlspecialchars($title); ?></h1>
@@ -214,7 +215,7 @@ PHP;
 </section>
 PHP;
         $this->createFile('app/Views/home/about.php', $aboutView);
-        
+
         $contactView = <<<'PHP'
 <div class="page-header">
     <h1><?php echo htmlspecialchars($title); ?></h1>
@@ -231,8 +232,9 @@ PHP;
 PHP;
         $this->createFile('app/Views/home/contact.php', $contactView);
     }
-    
-    private function createLayout() {
+
+    private function createLayout()
+    {
         $layoutContent = <<<'PHP'
 <!DOCTYPE html>
 <html lang="es">
@@ -268,8 +270,9 @@ PHP;
 PHP;
         $this->createFile('app/Views/layouts/main.php', $layoutContent);
     }
-    
-    private function createAssets() {
+
+    private function createAssets()
+    {
         $cssContent = <<<'CSS'
 * { margin: 0; padding: 0; box-sizing: border-box; }
 body { font-family: system-ui, sans-serif; line-height: 1.6; background: #f5f5f5; }
@@ -288,11 +291,12 @@ main { min-height: calc(100vh - 200px); padding: 2rem 0; }
 footer { background: #34495e; color: white; text-align: center; padding: 2rem 0; margin-top: 3rem; }
 CSS;
         $this->createFile('public/css/style.css', $cssContent);
-        
+
         $this->createFile('public/js/app.js', '');
     }
-    
-    private function createIndexFile() {
+
+    private function createIndexFile()
+    {
         $indexContent = <<<'PHP'
 <?php
 require __DIR__ . '/../vendor/autoload.php';
@@ -309,16 +313,12 @@ PHP;
         $this->createFile('public/index.php', $indexContent);
     }
 
-    private function createComposerJson() {
-        // Detectar la ruta real de FRAMEWORKWEBPHP
-        // __DIR__ = FRAMEWORKWEBPHP/Framework/Console/Commands
-        // Subimos 3 niveles para llegar a FRAMEWORKWEBPHP
+    private function createComposerJson()
+    {
         $frameworkPath = realpath(__DIR__ . '/../../..');
         $projectPath = getcwd();
-        
-        // Calcular la ruta relativa de FRAMEWORKWEBPHP desde el nuevo proyecto
         $relativePath = $this->getRelativePath($projectPath, $frameworkPath);
-        
+
         $composerContent = <<<JSON
 {
     "require": {
@@ -343,25 +343,25 @@ PHP;
 JSON;
         $this->createFile('composer.json', $composerContent);
     }
-    
-    private function getRelativePath($from, $to) {
-        // Normalizar rutas con / para JSON
+
+    private function getRelativePath($from, $to)
+    {
         $from = str_replace(DIRECTORY_SEPARATOR, '/', realpath($from));
         $to = str_replace(DIRECTORY_SEPARATOR, '/', realpath($to));
-        
+
         $from = explode('/', $from);
         $to = explode('/', $to);
-        
+
         $relpath = array();
-        
-        foreach($from as $dir) {
-            if(isset($to[0]) && $dir === $to[0]) {
+
+        foreach ($from as $dir) {
+            if (isset($to[0]) && $dir === $to[0]) {
                 array_shift($to);
             } else {
                 $relpath[] = '..';
             }
         }
-        
+
         return implode('/', array_merge($relpath, $to));
     }
 }

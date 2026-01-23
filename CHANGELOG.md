@@ -95,9 +95,9 @@ Consulta [CONTRIBUTING.md](CONTRIBUTING.md) para información sobre cómo contri
 
 ## Soporte
 
-- 📧 **Email:** javier@ejemplo.com
-- 🐛 **Issues:** [Reportar Bug](https://github.com/tu-usuario/mi-framework/issues)
-- 💬 **Discussions:** [Comunidad](https://github.com/tu-usuario/mi-framework/discussions)
+- 📧 **Email:** javierborjasamaniego@gmail.com
+- 🐛 **Issues:** [Reportar Bug](https://github.com/Javierborja09/olyxis/issues)
+- 💬 **Discussions:** [Comunidad](https://github.com/tu-Javierborja09/olyxis/discussions)
 
 ---
 

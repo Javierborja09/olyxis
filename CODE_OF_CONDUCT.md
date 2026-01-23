@@ -41,4 +41,4 @@ Este Código de Conducta está adaptado del [Contributor Covenant](https://www.c
 
 ---
 
-**Mi Framework** - Comunidad abierta, inclusiva y respetuosa 🌍
+**Olyxis Framework** - Comunidad abierta, inclusiva y respetuosa 🌍
