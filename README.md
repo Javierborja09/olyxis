@@ -339,7 +339,7 @@ Este proyecto está bajo licencia MIT. Ver archivo `LICENSE` para más detalles.
 **Javier Jeanpool Borja Samaniego**
 
 - GitHub: [@JavierBorja09](https://github.com/JavierBorja09)
-- Email: tu-email@ejemplo.com
+- Email: javierborjasamaniego@gmail.com
 - LinkedIn: [Tu Perfil](https://linkedin.com/in/javierborjasamaniego)
 
 ---
@@ -356,7 +356,6 @@ Este proyecto está bajo licencia MIT. Ver archivo `LICENSE` para más detalles.
 
 ¿Preguntas o problemas? 
 
-- 📧 Email: soporte@miframework.com
 - 🐛 Issues: [Reportar Bug](https://github.com/Javierborja09/olyxis/issues)
 - 💬 Discussions: [Discusiones](https://github.com/Javierborja09/olyxis/discussions)
 
