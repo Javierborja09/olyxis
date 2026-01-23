@@ -56,18 +56,21 @@ Un framework PHP moderno y ligero construido desde cero, diseñado para facilita
 
 ```bash
 git clone https://github.com/Javierborja09/mi-framework.git
-cd mi-framework
 ```
 
 ### 2. Inicializar proyecto (Opcional - para nuevos proyectos)
 
 ```bash
-php bin/miframework init
+php mi-framework/bin/miframework init
 ```
 
-> **Nota:** El repositorio ya incluye todas las dependencias (vendor/). No necesitas ejecutar `composer install`.
+### 3. Entrar a la carpeta del proyecto
 
-### 3. Configurar base de datos
+```bash
+cd mi-framework
+```
+
+### 4. Configurar base de datos (Opcional)
 
 Crear archivo `.env`:
 
@@ -79,13 +82,15 @@ DB_USER=root
 DB_PASSWORD=tu_password
 ```
 
-### 4. Iniciar servidor
+### 5. Iniciar servidor
 
 ```bash
 php bin/miframework serve localhost 8000
 ```
 
 Acceder a: http://localhost:8000
+
+> **Nota:** El repositorio ya incluye todas las dependencias (vendor/). No necesitas ejecutar `composer install`.
 
 ---
 
