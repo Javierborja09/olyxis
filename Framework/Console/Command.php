@@ -18,12 +18,14 @@ abstract class Command {
     
     protected function createDirectory($path) {
         if (!is_dir($path)) {
-            mkdir($path, 0755, true);
+            mkdir($path, 0777, true);
             $this->success("Directorio creado: {$path}");
         }
     }
     
     protected function createFile($path, $content) {
+        $directory = dirname($path);
+        $this->createDirectory($directory);
         file_put_contents($path, $content);
         $this->success("Archivo creado: {$path}");
     }
