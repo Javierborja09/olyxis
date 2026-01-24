@@ -49,13 +49,13 @@ PHP;
 HTML;
 
         $this->createFile($controllerPath, $controllerContent);
-        $this->createFile("resources/views/{$viewFolder}/index.php", $viewContent);
+        $this->createFile("app/Views/{$viewFolder}/index.php", $viewContent);
 
         $this->addRouteToConfig($viewFolder, $name);
 
         $this->success("\n✅ ¡Todo listo!");
         $this->info("- Controlador: {$controllerPath}");
-        $this->info("- Vista: resources/views/{$viewFolder}/index.php");
+        $this->info("- Vista: app/Views/{$viewFolder}/index.php");
         $this->info("- Ruta: Añadida automáticamente a config/routes.php");
     }
 
