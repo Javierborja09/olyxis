@@ -104,7 +104,7 @@ Acceder a: http://localhost:8000
 
 ---
 
-## 📁 Estructura del Proyecto
+## 📁 Estructura Inicial del Proyecto
 
 ```
 olyxis/
