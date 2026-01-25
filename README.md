@@ -340,7 +340,7 @@ Este proyecto está bajo licencia MIT. Ver archivo `LICENSE` para más detalles.
 
 - GitHub: [@JavierBorja09](https://github.com/JavierBorja09)
 - Email: javierborjasamaniego@gmail.com
-- LinkedIn: [Tu Perfil](https://linkedin.com/in/javierborjasamaniego)
+- LinkedIn: [Mi Perfil](https://www.linkedin.com/in/javier-jeanpool-borja-samaniego-a6b8b7300/)
 
 ---
 
