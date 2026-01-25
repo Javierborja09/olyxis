@@ -16,6 +16,7 @@ class InitCommand extends Command
         $this->createControllers();
         $this->createViews();
         $this->createLayout();
+        $this->createComponents();
         $this->createAssets();
         $this->createIndexFile();
         $this->copyFrameworkCore();
@@ -58,6 +59,36 @@ class InitCommand extends Command
         return true;
     }
 
+    private function createComponents()
+    {
+        $this->info("📦 Configurando componentes globales...");
+        $source = __DIR__ . '/../../../app/Views/components';
+        $dest = getcwd() . '/app/Views/components';
+
+        if (is_dir($source)) {
+            $this->copyRecursive($source, $dest);
+            $this->info("✔️ Componentes copiados a app/Views/components");
+        } else {
+            $alertContent = <<<'PHP'
+<?php if (isset($message) && $message): ?>
+    <div id="alert-container" style="padding: 10px; background: <?= $type === 'success' ? '#dff0d8' : '#f2dede' ?>; color: <?= $type === 'success' ? '#3c763d' : '#a94442' ?>; margin-bottom: 15px; border-radius: 4px; transition: opacity 0.5s ease;">
+        <?= htmlspecialchars($message) ?>
+    </div>
+    <script>
+        setTimeout(function() {
+            const alert = document.getElementById('alert-container');
+            if (alert) {
+                alert.style.opacity = '0';
+                setTimeout(() => alert.remove(), 500);
+            }
+        }, 2000);
+    </script>
+<?php endif; ?>
+PHP;
+            $this->createFile('app/Views/components/Alert.php', $alertContent);
+        }
+    }
+
     private function createLocalBin()
     {
         $binDir = getcwd() . '/bin';
@@ -82,6 +113,7 @@ class InitCommand extends Command
             'app/Views/home',
             'app/Views/layouts',
             'config',
+            'app/Views/components',
             'public/css',
             'public/js',
             'public/images',
@@ -300,7 +332,7 @@ CSS;
         $indexContent = <<<'PHP'
 <?php
 require __DIR__ . '/../vendor/autoload.php';
-
+require_once __DIR__ . '/../Framework/Core/Helpers.php';
 use Framework\Core\Application;
 
 try {
@@ -331,7 +363,7 @@ PHP;
         }
     ],
     "require-dev": {
-        "pushofdev/miframework": "@dev"
+        "javierborja09/olyxis": "@dev"
     },
     "autoload": {
         "psr-4": {
