@@ -15,9 +15,8 @@ Un framework PHP moderno y ligero construido desde cero, diseñado para facilita
 - Sistema de formularios seguro
 
 ✅ **CLI Tool Potente**
-- `php bin/olyxis serve` - Iniciar servidor de desarrollo
-- `php bin/olyxis init` - Inicializar nuevos proyectos
-- `php bin/olyxis make:controller` - Generar controladores automáticamente
+- `php oly serve` - Iniciar servidor de desarrollo
+- `php oly make:controller` - Generar controladores automáticamente
 
 ✅ **Base de Datos Optimizada**
 - PDO con conexiones persistentes
@@ -234,12 +233,12 @@ git clone https://github.com/Javierborja09/olyxis.git
 ### 2. Inicializar proyecto (Opcional - para nuevos proyectos)
 
 ```bash
-php olyxis/olyxis init
+php olyxis/oly init
 ```
 
 ### 3. Inicializar y nota sobre la carpeta temporal
 
-El comando `php olyxis/olyxis init` copia la estructura del framework en tu carpeta actual. No es necesario ejecutar `cd olyxis`.
+El comando `php olyxis/oly init` copia la estructura del framework en tu carpeta actual. No es necesario ejecutar `cd olyxis`.
 
 Si no necesitas conservar la carpeta temporal `olyxis`, puedes eliminarla:
 
@@ -268,7 +267,7 @@ DB_PASSWORD=tu_password
 ### 5. Iniciar servidor
 
 ```bash
-php olyxis serve localhost 8000
+php oly serve localhost 8000
 ```
 
 Acceder a: http://localhost:8000
@@ -313,7 +312,7 @@ olyxis/
 ### Crear un Controlador
 
 ```bash
-php olyxis make:controller Product
+php oly make:controller Product
 ```
 
 ### Definir una Ruta
@@ -430,10 +429,10 @@ El framework incluye Tailwind CSS via CDN. Personaliza en `app/Views/layouts/mai
 
 | Comando | Descripción |
 |---------|------------|
-| `php olyxis serve` | Iniciar servidor en puerto 8000 |
-| `php olyxis serve localhost 3000` | Iniciar en puerto específico |
-| `php olyxis init` | Inicializar proyecto |
-| `php olyxis make:controller NombreController` | Generar controlador |
+| `php oly serve` | Iniciar servidor en puerto 8000 |
+| `php oly serve localhost 3000` | Iniciar en puerto específico |
+| `php oly init` | Inicializar proyecto |
+| `php oly make:controller NombreController` | Generar controlador |
 
 ---
 
