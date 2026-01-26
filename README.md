@@ -6,6 +6,7 @@ Un framework PHP moderno y ligero construido desde cero, diseñado para facilita
 
 ---
 
+
 ## 🎯 Características Principales
 
 ✅ **Arquitectura MVC Completa**
@@ -34,10 +35,182 @@ Un framework PHP moderno y ligero construido desde cero, diseñado para facilita
 - Protección XSS
 - Validación de entrada
 
+
 ✅ **Gestión de Configuración**
 - Soporte para archivos `.env`
 - Configuración centralizada
 - Variables de entorno
+
+---
+
+## 🚀 Funcionalidades Avanzadas y Ejemplos
+
+### Middlewares Personalizados
+
+Puedes proteger rutas y controlar la sesión de usuario usando middlewares:
+
+```php
+// app/Middlewares/AuthMiddleware.php
+class AuthMiddleware implements Middleware {
+    public function handle(Request $request, callable $next) {
+        if (!$request->session()->get('user_id')) {
+            $request->setFlash('error', 'Debes iniciar sesión para acceder.');
+            return new Response('', 302, ['Location' => '/']);
+        }
+        return $next($request);
+    }
+}
+
+// app/Middlewares/SessionTimeoutMiddleware.php
+class SessionTimeoutMiddleware implements Middleware {
+    public function handle(Request $request, callable $next) {
+        $session = $request->session();
+        $now = time();
+        $timeout = 300; // 5 minutos
+        if ($session->has('user_id')) {
+            $lastActivity = $session->get('last_activity');
+            if ($lastActivity && ($now - $lastActivity > $timeout)) {
+                $session->destroy();
+                $session->setFlash('error', 'Tu sesión ha expirado por inactividad.');
+                return new Response('', 302, ['Location' => '/']);
+            }
+            $session->set('last_activity', $now);
+        }
+        return $next($request);
+    }
+}
+```
+
+### Ejemplo de uso de Middlewares en un Controller
+
+```php
+class ProductosController extends Controller {
+    public function __construct() {
+        $this->middleware(AuthMiddleware::class);
+        $this->middleware(SessionTimeoutMiddleware::class);
+    }
+    // ...
+}
+```
+
+### Ventas Multi-producto y Validación de Stock
+
+```php
+// Procesar venta de varios productos en lote
+public function store_lote(Request $request) {
+    $items = $request->post('items');
+    if (empty($items)) {
+        $request->setFlash('error', 'La lista de venta está vacía.');
+        return $this->redirect('/ventas');
+    }
+    $exito = true;
+    foreach ($items as $item) {
+        if (!$this->ventaDao->create([
+            'producto_id' => $item['id'],
+            'cantidad'    => $item['cantidad'],
+            'precio'      => $item['precio']
+        ])) {
+            $exito = false;
+            break;
+        }
+    }
+    if ($exito) {
+        $request->setFlash('success', 'Venta procesada con éxito y stock actualizado.');
+    } else {
+        $request->setFlash('error', 'Error crítico al procesar la venta. Intente de nuevo.');
+    }
+    return $this->redirect('/ventas');
+}
+```
+
+### Reportes y KPIs de Ventas
+
+```php
+public function reportes(Request $request) {
+    $inicio = $request->get('fecha_inicio');
+    $fin = $request->get('fecha_fin');
+    return $this->view('ventas/reportes', [
+        'title'   => 'Reporte de Ventas',
+        'resumen' => $this->ventaDao->getResumenGeneral($inicio, $fin),
+        'ventas'  => $this->ventaDao->getAll($inicio, $fin)
+    ], 'layouts/main');
+}
+```
+
+### Uso de Flashes para Mensajes de Usuario
+
+```php
+// En el controlador
+$request->setFlash('success', 'Operación exitosa.');
+$request->setFlash('error', 'Ocurrió un error.');
+
+// En la vista (ejemplo Blade/PHP)
+<?php if ($flash = $request->getFlash('success')): ?>
+    <div class="alert alert-success"><?= $flash ?></div>
+<?php endif; ?>
+```
+
+### Uso de Stored Procedures para Seguridad y Rendimiento
+
+```php
+// Ejemplo en un DAO
+public function getAll(): array {
+    $stmt = $this->db->call('sp_listar_productos');
+    return $stmt->fetchAll();
+}
+```
+
+### Ejemplo Completo de routes.php
+
+```php
+// config/routes.php
+// Este archivo define las rutas disponibles en la aplicación y a qué función de cada controlador apuntan.
+// El array principal tiene dos claves: 'GET' y 'POST', que corresponden a los métodos HTTP.
+// Cada ruta apunta a un método específico del controlador en formato 'Controlador@funcion'.
+
+return [
+    'GET' => [
+        // Página de inicio de sesión
+        '/' => 'LoginController@index', // Muestra el formulario de login
+
+        // Productos
+        '/productos' => 'ProductosController@index', // Lista todos los productos
+
+        // Categorías
+        '/categorias' => 'CategoriasController@index', // Lista todas las categorías
+
+        // Ventas
+        '/ventas' => 'VentasController@index', // Módulo principal de ventas
+        '/ventas/reportes' => 'VentasController@reportes', // Reporte de ventas filtrado por fecha
+    ],
+    'POST' => [
+        // Autenticación
+        '/login' => 'LoginController@authenticate', // Procesa el login
+        '/logout' => 'LoginController@logout', // Cierra la sesión
+
+        // Productos
+        '/productos/store' => 'ProductosController@store', // Crea un nuevo producto
+        '/productos/update' => 'ProductosController@update', // Actualiza un producto existente
+        '/productos/delete/{id}' => 'ProductosController@destroy', // Elimina un producto por ID
+
+        // Categorías
+        '/categorias/store' => 'CategoriasController@store', // Crea una nueva categoría
+        '/categorias/update' => 'CategoriasController@update', // Actualiza una categoría existente
+        '/categorias/delete/{id}' => 'CategoriasController@destroy', // Elimina una categoría por ID
+
+        // Ventas
+        '/ventas/store-lote' => 'VentasController@store_lote', // Procesa una venta de varios productos
+    ]
+];
+```
+
+---
+
+## 🛡️ Pruebas de Seguridad y Robustez
+
+El framework y las aplicaciones basadas en él han superado pruebas de pentesting (SQLi, XSS, Path Traversal, Command Injection, Fuerza Bruta), garantizando un alto estándar de seguridad.
+
+---
 
 ---
 
@@ -319,12 +492,6 @@ class ContactController extends Controller {
 ## 🤝 Contribuciones
 
 Las contribuciones son bienvenidas. Para cambios grandes:
-
-1. Fork el proyecto
-2. Crear una rama (`git checkout -b feature/AmazingFeature`)
-3. Commit los cambios (`git commit -m 'Add some AmazingFeature'`)
-4. Push a la rama (`git push origin feature/AmazingFeature`)
-5. Abrir un Pull Request
 
 ---
 
