@@ -95,13 +95,15 @@ PHP;
         if (!is_dir($binDir)) {
             mkdir($binDir, 0777, true);
         }
-        $originalBin = __DIR__ . '/../../../bin/olyxis';
+        $originalBin = dirname(__DIR__, 2) . '/olyxis';
         $newBin = $binDir . '/olyxis';
 
         if (file_exists($originalBin)) {
             copy($originalBin, $newBin);
             chmod($newBin, 0755);
             $this->info("✔️ Binario local creado en bin/olyxis");
+        } else {
+            $this->error("❌ No se encontró el binario original en: " . $originalBin);
         }
     }
 
