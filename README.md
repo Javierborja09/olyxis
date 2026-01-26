@@ -234,12 +234,12 @@ git clone https://github.com/Javierborja09/olyxis.git
 ### 2. Inicializar proyecto (Opcional - para nuevos proyectos)
 
 ```bash
-php olyxis/bin/olyxis init
+php olyxis/olyxis init
 ```
 
 ### 3. Inicializar y nota sobre la carpeta temporal
 
-El comando `php olyxis/bin/olyxis init` copia la estructura del framework en tu carpeta actual. No es necesario ejecutar `cd olyxis`.
+El comando `php olyxis/olyxis init` copia la estructura del framework en tu carpeta actual. No es necesario ejecutar `cd olyxis`.
 
 Si no necesitas conservar la carpeta temporal `olyxis`, puedes eliminarla:
 
@@ -268,7 +268,7 @@ DB_PASSWORD=tu_password
 ### 5. Iniciar servidor
 
 ```bash
-php bin/olyxis serve localhost 8000
+php olyxis serve localhost 8000
 ```
 
 Acceder a: http://localhost:8000
@@ -313,7 +313,7 @@ olyxis/
 ### Crear un Controlador
 
 ```bash
-php bin/olyxis make:controller ProductController
+php olyxis make:controller Product
 ```
 
 ### Definir una Ruta
@@ -430,10 +430,10 @@ El framework incluye Tailwind CSS via CDN. Personaliza en `app/Views/layouts/mai
 
 | Comando | Descripción |
 |---------|------------|
-| `php bin/olyxis serve` | Iniciar servidor en puerto 8000 |
-| `php bin/olyxis serve localhost 3000` | Iniciar en puerto específico |
-| `php bin/olyxis init` | Inicializar proyecto |
-| `php bin/olyxis make:controller NombreController` | Generar controlador |
+| `php olyxis serve` | Iniciar servidor en puerto 8000 |
+| `php olyxis serve localhost 3000` | Iniciar en puerto específico |
+| `php olyxis init` | Inicializar proyecto |
+| `php olyxis make:controller NombreController` | Generar controlador |
 
 ---
 
