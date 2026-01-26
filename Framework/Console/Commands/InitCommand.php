@@ -27,7 +27,7 @@ class InitCommand extends Command
         $this->success("Autoloader actualizado correctamente.");
         $this->success("\n¡Proyecto inicializado correctamente! 🎉");
         $this->info("\nPara iniciar el servidor ejecuta:");
-        $this->info("   php bin/olyxis serve\n");
+        $this->info("   php oly serve\n");
     }
 
     private function copyFrameworkCore()
@@ -355,23 +355,10 @@ PHP;
 
     private function createComposerJson()
     {
-        $frameworkPath = realpath(__DIR__ . '/../../..');
-        $projectPath = getcwd();
-        $relativePath = $this->getRelativePath($projectPath, $frameworkPath);
-
         $composerContent = <<<JSON
 {
     "require": {
         "php": ">=8.0"
-    },
-    "repositories": [
-        {
-            "type": "path",
-            "url": "$relativePath"
-        }
-    ],
-    "require-dev": {
-        "javierborja09/olyxis": "@dev"
     },
     "autoload": {
         "psr-4": {
