@@ -57,8 +57,8 @@ function displayHelp() {
     echo "  └─ make:controller   Crea un nuevo controlador\n";
     echo "\n";
     echo "Ejemplos:\n";
-    echo "  php bin/olyxis init\n";
-    echo "  php bin/olyxis serve\n";
-    echo "  php bin/olyxis make:controller User\n";
+    echo "  php oly init\n";
+    echo "  php oly serve\n";
+    echo "  php oly make:controller User\n";
     echo "\n";
 }

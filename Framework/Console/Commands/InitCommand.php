@@ -89,22 +89,29 @@ PHP;
         }
     }
 
-    private function createLocalBin()
-    {
-        $destinationPath = getcwd() . '/olyxis';
-        $originalBin = dirname(__DIR__, 3) . '/olyxis';
+private function createLocalBin()
+{
+    $currentDir = getcwd();
+    $destinationPath = $currentDir . DIRECTORY_SEPARATOR . 'oly';
 
-        if (file_exists($originalBin)) {
-            if (copy($originalBin, $destinationPath)) {
-                chmod($destinationPath, 0755);
-                $this->info("✔️ Binario local creado en la raíz: ./olyxis");
-            } else {
-                $this->error("❌ No se pudo copiar el binario a: " . $destinationPath);
-            }
-        } else {
-            $this->error("❌ No se encontró el binario fuente en: " . $originalBin);
+    $originalBin = dirname(__DIR__, 3) . DIRECTORY_SEPARATOR . 'oly';
+
+    if (file_exists($originalBin) && !is_dir($originalBin)) {
+        if (is_dir($destinationPath)) {
+             $this->error("⚠️ No se pudo copiar el binario: Ya existe una carpeta llamada 'oly' en la raíz.");
+             return;
         }
+
+        if (copy($originalBin, $destinationPath)) {
+            chmod($destinationPath, 0755);
+            $this->info("✔️ Binario local creado en la raíz: ./oly");
+        } else {
+            $this->error("❌ Error al copiar el binario a: " . $destinationPath);
+        }
+    } else {
+        $this->error("❌ No se encontró el binario fuente en: " . $originalBin);
     }
+}
 
     private function createDirectories()
     {
