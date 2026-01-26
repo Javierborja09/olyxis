@@ -5,7 +5,7 @@
 // Olyxis CLI
 // ============================================
 
-$internalAutoloader = __DIR__ . '/../vendor/autoload.php';
+$internalAutoloader = __DIR__ . '/vendor/autoload.php';
 $currentAutoloader = getcwd() . '/vendor/autoload.php';
 
 if (file_exists($internalAutoloader)) {
