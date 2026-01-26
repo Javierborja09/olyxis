@@ -91,19 +91,18 @@ PHP;
 
     private function createLocalBin()
     {
-        $binDir = getcwd() . '/bin';
-        if (!is_dir($binDir)) {
-            mkdir($binDir, 0777, true);
-        }
-        $originalBin = dirname(__DIR__, 2) . '/olyxis';
-        $newBin = $binDir . '/olyxis';
+        $destinationPath = getcwd() . '/olyxis';
+        $originalBin = dirname(__DIR__, 3) . '/olyxis';
 
         if (file_exists($originalBin)) {
-            copy($originalBin, $newBin);
-            chmod($newBin, 0755);
-            $this->info("✔️ Binario local creado en bin/olyxis");
+            if (copy($originalBin, $destinationPath)) {
+                chmod($destinationPath, 0755);
+                $this->info("✔️ Binario local creado en la raíz: ./olyxis");
+            } else {
+                $this->error("❌ No se pudo copiar el binario a: " . $destinationPath);
+            }
         } else {
-            $this->error("❌ No se encontró el binario original en: " . $originalBin);
+            $this->error("❌ No se encontró el binario fuente en: " . $originalBin);
         }
     }
 
