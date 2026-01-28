@@ -654,7 +654,7 @@
         </div>
     </section>
 
-    <section class="code-section">
+<section class="code-section">
         <div class="container">
             <h2 class="section-title">Código Limpio y Elegante</h2>
             <p class="section-subtitle">Desarrolla rápidamente con una sintaxis clara y expresiva</p>
@@ -697,6 +697,268 @@
         </div>
     </section>
 
+    <!-- Sección de Modelos -->
+    <section class="code-section bg-light">
+        <div class="container">
+            <h2 class="section-title">Modelos Potentes y Flexibles</h2>
+            <p class="section-subtitle">CRUD automático con consultas personalizadas</p>
+
+            <div class="code-container">
+                <div class="code-header">
+                    <div class="code-dots">
+                        <div class="dot red"></div>
+                        <div class="dot yellow"></div>
+                        <div class="dot green"></div>
+                    </div>
+                    <div class="code-title">Product.php</div>
+                </div>
+                <pre><code><span class="code-keyword">namespace</span> <span class="code-class">App\Models</span>;
+
+<span class="code-keyword">use</span> <span class="code-class">Framework\Core\Model</span>;
+
+<span class="code-keyword">class</span> <span class="code-class">Product</span> <span class="code-keyword">extends</span> <span class="code-class">Model</span> 
+{
+    <span class="code-keyword">protected</span> $table = <span class="code-string">'products'</span>;
+    
+    <span class="code-comment">// Obtener productos por categoría</span>
+    <span class="code-keyword">public function</span> <span class="code-function">getByCategory</span>($categoryId) 
+    {
+        <span class="code-keyword">return</span> $<span class="code-keyword">this</span>-><span class="code-function">where</span>(<span class="code-string">'category_id = ?'</span>, [$categoryId]);
+    }
+    
+    <span class="code-comment">// Buscar productos por nombre</span>
+    <span class="code-keyword">public function</span> <span class="code-function">search</span>($query) 
+    {
+        <span class="code-keyword">return</span> $<span class="code-keyword">this</span>-><span class="code-function">where</span>(<span class="code-string">'name LIKE ?'</span>, [<span class="code-string">"%$query%"</span>]);
+    }
+    
+    <span class="code-comment">// Productos con stock bajo</span>
+    <span class="code-keyword">public function</span> <span class="code-function">lowStock</span>($threshold = <span class="code-number">10</span>) 
+    {
+        <span class="code-keyword">return</span> $<span class="code-keyword">this</span>-><span class="code-function">where</span>(<span class="code-string">'stock < ?'</span>, [$threshold]);
+    }
+}</code></pre>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sección de Middlewares -->
+    <section class="code-section">
+        <div class="container">
+            <h2 class="section-title">Seguridad Integrada</h2>
+            <p class="section-subtitle">Protege tus rutas con middlewares personalizados</p>
+
+            <div class="code-container">
+                <div class="code-header">
+                    <div class="code-dots">
+                        <div class="dot red"></div>
+                        <div class="dot yellow"></div>
+                        <div class="dot green"></div>
+                    </div>
+                    <div class="code-title">AuthMiddleware.php</div>
+                </div>
+                <pre><code><span class="code-keyword">namespace</span> <span class="code-class">App\Middlewares</span>;
+
+<span class="code-keyword">class</span> <span class="code-class">AuthMiddleware</span> <span class="code-keyword">implements</span> <span class="code-class">Middleware</span> 
+{
+    <span class="code-keyword">public function</span> <span class="code-function">handle</span>(<span class="code-class">Request</span> $request, <span class="code-keyword">callable</span> $next) 
+    {
+        <span class="code-keyword">if</span> (!$request-><span class="code-function">session</span>()-><span class="code-function">get</span>(<span class="code-string">'user_id'</span>)) {
+            $request-><span class="code-function">setFlash</span>(<span class="code-string">'error'</span>, <span class="code-string">'Debes iniciar sesión'</span>);
+            <span class="code-keyword">return new</span> <span class="code-class">Response</span>(<span class="code-string">''</span>, <span class="code-number">302</span>, [<span class="code-string">'Location'</span> => <span class="code-string">'/'</span>]);
+        }
+        <span class="code-keyword">return</span> <span class="code-function">$next</span>($request);
+    }
+}
+
+<span class="code-comment">// Uso en controlador</span>
+<span class="code-keyword">class</span> <span class="code-class">ProductsController</span> <span class="code-keyword">extends</span> <span class="code-class">Controller</span> 
+{
+    <span class="code-keyword">public function</span> <span class="code-function">__construct</span>() 
+    {
+        $<span class="code-keyword">this</span>-><span class="code-function">middleware</span>(<span class="code-class">AuthMiddleware</span>::<span class="code-keyword">class</span>);
+    }
+}</code></pre>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sección de Rutas -->
+    <section class="code-section bg-light">
+        <div class="container">
+            <h2 class="section-title">Enrutamiento Intuitivo</h2>
+            <p class="section-subtitle">Define tus rutas de forma clara y organizada</p>
+
+            <div class="code-container">
+                <div class="code-header">
+                    <div class="code-dots">
+                        <div class="dot red"></div>
+                        <div class="dot yellow"></div>
+                        <div class="dot green"></div>
+                    </div>
+                    <div class="code-title">routes.php</div>
+                </div>
+                <pre><code><span class="code-keyword">return</span> [
+    <span class="code-string">'GET'</span> => [
+        <span class="code-comment">// Páginas principales</span>
+        <span class="code-string">'/'</span> => <span class="code-string">'HomeController@index'</span>,
+        <span class="code-string">'/login'</span> => <span class="code-string">'LoginController@index'</span>,
+        
+        <span class="code-comment">// Productos</span>
+        <span class="code-string">'/productos'</span> => <span class="code-string">'ProductosController@index'</span>,
+        <span class="code-string">'/productos/crear'</span> => <span class="code-string">'ProductosController@create'</span>,
+        <span class="code-string">'/productos/{id}'</span> => <span class="code-string">'ProductosController@show'</span>,
+        
+        <span class="code-comment">// Categorías</span>
+        <span class="code-string">'/categorias'</span> => <span class="code-string">'CategoriasController@index'</span>,
+        
+        <span class="code-comment">// Ventas y Reportes</span>
+        <span class="code-string">'/ventas'</span> => <span class="code-string">'VentasController@index'</span>,
+        <span class="code-string">'/ventas/reportes'</span> => <span class="code-string">'VentasController@reportes'</span>,
+    ],
+    
+    <span class="code-string">'POST'</span> => [
+        <span class="code-comment">// Autenticación</span>
+        <span class="code-string">'/login'</span> => <span class="code-string">'LoginController@authenticate'</span>,
+        <span class="code-string">'/logout'</span> => <span class="code-string">'LoginController@logout'</span>,
+        
+        <span class="code-comment">// CRUD Productos</span>
+        <span class="code-string">'/productos/store'</span> => <span class="code-string">'ProductosController@store'</span>,
+        <span class="code-string">'/productos/update'</span> => <span class="code-string">'ProductosController@update'</span>,
+        <span class="code-string">'/productos/delete/{id}'</span> => <span class="code-string">'ProductosController@destroy'</span>,
+        
+        <span class="code-comment">// Ventas en lote</span>
+        <span class="code-string">'/ventas/store-lote'</span> => <span class="code-string">'VentasController@store_lote'</span>,
+    ]
+];</code></pre>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sección de Vistas -->
+    <section class="code-section">
+        <div class="container">
+            <h2 class="section-title">Vistas Dinámicas</h2>
+            <p class="section-subtitle">Templates modernos con Tailwind CSS integrado</p>
+
+            <div class="code-container">
+                <div class="code-header">
+                    <div class="code-dots">
+                        <div class="dot red"></div>
+                        <div class="dot yellow"></div>
+                        <div class="dot green"></div>
+                    </div>
+                    <div class="code-title">products/index.php</div>
+                </div>
+                <pre><code><span class="code-tag">&lt;div</span> <span class="code-attr">class</span>=<span class="code-string">"container mx-auto px-4 py-8"</span><span class="code-tag">&gt;</span>
+    <span class="code-tag">&lt;h1</span> <span class="code-attr">class</span>=<span class="code-string">"text-3xl font-bold mb-6"</span><span class="code-tag">&gt;</span>Productos<span class="code-tag">&lt;/h1&gt;</span>
+    
+    <span class="code-comment">&lt;!-- Mensajes Flash --&gt;</span>
+    <span class="code-php">&lt;?php if ($request-&gt;hasFlash('success')): ?&gt;</span>
+        <span class="code-tag">&lt;div</span> <span class="code-attr">class</span>=<span class="code-string">"bg-green-100 border-green-400 px-4 py-3 rounded"</span><span class="code-tag">&gt;</span>
+            <span class="code-php">&lt;?php echo $request-&gt;getFlash('success'); ?&gt;</span>
+        <span class="code-tag">&lt;/div&gt;</span>
+    <span class="code-php">&lt;?php endif; ?&gt;</span>
+    
+    <span class="code-comment">&lt;!-- Grid de Productos --&gt;</span>
+    <span class="code-tag">&lt;div</span> <span class="code-attr">class</span>=<span class="code-string">"grid md:grid-cols-3 gap-6"</span><span class="code-tag">&gt;</span>
+        <span class="code-php">&lt;?php foreach ($products as $product): ?&gt;</span>
+            <span class="code-tag">&lt;div</span> <span class="code-attr">class</span>=<span class="code-string">"bg-white rounded-lg shadow-lg p-6"</span><span class="code-tag">&gt;</span>
+                <span class="code-tag">&lt;h2</span> <span class="code-attr">class</span>=<span class="code-string">"text-xl font-bold"</span><span class="code-tag">&gt;</span>
+                    <span class="code-php">&lt;?php echo htmlspecialchars($product['name']); ?&gt;</span>
+                <span class="code-tag">&lt;/h2&gt;</span>
+                <span class="code-tag">&lt;p</span> <span class="code-attr">class</span>=<span class="code-string">"text-2xl text-green-600"</span><span class="code-tag">&gt;</span>
+                    $<span class="code-php">&lt;?php echo number_format($product['price'], 2); ?&gt;</span>
+                <span class="code-tag">&lt;/p&gt;</span>
+            <span class="code-tag">&lt;/div&gt;</span>
+        <span class="code-php">&lt;?php endforeach; ?&gt;</span>
+    <span class="code-tag">&lt;/div&gt;</span>
+<span class="code-tag">&lt;/div&gt;</span></code></pre>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sección de Base de Datos -->
+    <section class="code-section bg-light">
+        <div class="container">
+            <h2 class="section-title">Consultas Avanzadas</h2>
+            <p class="section-subtitle">Acceso directo a la base de datos cuando lo necesites</p>
+
+            <div class="code-container">
+                <div class="code-header">
+                    <div class="code-dots">
+                        <div class="dot red"></div>
+                        <div class="dot yellow"></div>
+                        <div class="dot green"></div>
+                    </div>
+                    <div class="code-title">VentasController.php</div>
+                </div>
+                <pre><code><span class="code-keyword">use</span> <span class="code-class">Framework\Core\Database</span>;
+
+<span class="code-keyword">public function</span> <span class="code-function">reportes</span>(<span class="code-class">Request</span> $request) 
+{
+    $db = <span class="code-class">Database</span>::<span class="code-function">getInstance</span>();
+    
+    $inicio = $request-><span class="code-function">get</span>(<span class="code-string">'fecha_inicio'</span>);
+    $fin = $request-><span class="code-function">get</span>(<span class="code-string">'fecha_fin'</span>);
+    
+    <span class="code-comment">// Consulta personalizada con JOIN</span>
+    $ventas = $db-><span class="code-function">fetchAll</span>(<span class="code-string">"
+        SELECT v.*, p.name, p.price, c.name as categoria
+        FROM ventas v
+        JOIN productos p ON v.producto_id = p.id
+        JOIN categorias c ON p.categoria_id = c.id
+        WHERE v.fecha BETWEEN ? AND ?
+        ORDER BY v.fecha DESC
+    "</span>, [$inicio, $fin]);
+    
+    <span class="code-comment">// Stored Procedure para resumen</span>
+    $resumen = $db-><span class="code-function">call</span>(<span class="code-string">'sp_resumen_ventas'</span>, [$inicio, $fin]);
+    
+    <span class="code-keyword">return</span> $<span class="code-keyword">this</span>-><span class="code-function">view</span>(<span class="code-string">'ventas/reportes'</span>, [
+        <span class="code-string">'ventas'</span> => $ventas,
+        <span class="code-string">'resumen'</span> => $resumen-><span class="code-function">fetch</span>()
+    ]);
+}</code></pre>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sección de CLI -->
+    <section class="code-section">
+        <div class="container">
+            <h2 class="section-title">Herramientas CLI</h2>
+            <p class="section-subtitle">Genera código rápidamente desde la terminal</p>
+
+            <div class="code-container">
+                <div class="code-header">
+                    <div class="code-dots">
+                        <div class="dot red"></div>
+                        <div class="dot yellow"></div>
+                        <div class="dot green"></div>
+                    </div>
+                    <div class="code-title">Terminal</div>
+                </div>
+                <pre><code><span class="code-comment"># Crear un nuevo controlador</span>
+$ php oly make:controller Product
+
+<span class="code-comment"># Crear un nuevo modelo</span>
+$ php oly make:model Product
+
+<span class="code-comment"># Crear un middleware</span>
+$ php oly make:middleware Auth
+
+<span class="code-comment"># Crear una migración</span>
+$ php oly make:migration create_products_table
+
+<span class="code-comment"># Limpiar cache</span>
+$ php oly cache:clear
+
+<span class="code-comment"># Iniciar servidor de desarrollo</span>
+$ php oly serve</code></pre>
+            </div>
+        </div>
+    </section>
 
 
 
@@ -710,14 +972,6 @@
 
                 <div class="project-card fade-in"
                     style="background: var(--bg-card); border: 1px solid rgba(255, 107, 53, 0.1); border-radius: 16px; overflow: hidden; transition: all 0.3s ease; display: flex; flex-direction: column;">
-                    <div style="width: 100%; height: 200px; overflow: hidden; position: relative;">
-                        <img src="https://i.ibb.co/3Y89tXc4/proyecto.png" alt="Dashboard Gestión de Inventario"
-                            style="width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease;">
-                        <div
-                            style="position: absolute; bottom: 0; left: 0; width: 100%; height: 50%; background: linear-gradient(transparent, var(--bg-card));">
-                        </div>
-                    </div>
-
                     <div style="padding: 1.5rem 2rem 2rem 2rem;">
                         <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 1rem;">
                             <span style="font-size: 1.5rem;">📦</span>
@@ -791,11 +1045,6 @@
                             <span style="color: #6a9955;"># En Windows (PowerShell):</span><br>
                             Remove-Item -Recurse -Force olyxis
                         </div>
-
-                        <p style="font-size: 0.85em; color: #888; margin-top: 10px;">
-                            <i>* Nota: No es necesario ejecutar <code>cd olyxis</code> en ningún momento del
-                                proceso.</i>
-                        </p>
                     </div>
                 </div>
 
