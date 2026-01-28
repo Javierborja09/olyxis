@@ -1,12 +1,15 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Olyxis Framework - Documentación</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap"
+        rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -125,8 +128,17 @@
         }
 
         @keyframes pulse {
-            0%, 100% { transform: scale(1); opacity: 0.5; }
-            50% { transform: scale(1.2); opacity: 0.8; }
+
+            0%,
+            100% {
+                transform: scale(1);
+                opacity: 0.5;
+            }
+
+            50% {
+                transform: scale(1.2);
+                opacity: 0.8;
+            }
         }
 
         .hero-content {
@@ -199,6 +211,7 @@
                 opacity: 0;
                 transform: translateY(30px);
             }
+
             to {
                 opacity: 1;
                 transform: translateY(0);
@@ -299,9 +312,17 @@
             border-radius: 50%;
         }
 
-        .dot.red { background: #ff5f56; }
-        .dot.yellow { background: #ffbd2e; }
-        .dot.green { background: #27c93f; }
+        .dot.red {
+            background: #ff5f56;
+        }
+
+        .dot.yellow {
+            background: #ffbd2e;
+        }
+
+        .dot.green {
+            background: #27c93f;
+        }
 
         .code-title {
             color: var(--light);
@@ -321,11 +342,25 @@
             font-family: 'JetBrains Mono', monospace;
         }
 
-        .code-comment { color: #6A9955; }
-        .code-keyword { color: #C586C0; }
-        .code-string { color: #CE9178; }
-        .code-function { color: #DCDCAA; }
-        .code-class { color: #4EC9B0; }
+        .code-comment {
+            color: #6A9955;
+        }
+
+        .code-keyword {
+            color: #C586C0;
+        }
+
+        .code-string {
+            color: #CE9178;
+        }
+
+        .code-function {
+            color: #DCDCAA;
+        }
+
+        .code-class {
+            color: #4EC9B0;
+        }
 
         /* Installation Section */
         .installation {
@@ -458,7 +493,8 @@
             margin-bottom: 1.5rem;
         }
 
-        .footer-section p, .footer-section a {
+        .footer-section p,
+        .footer-section a {
             color: rgba(234, 234, 234, 0.7);
             text-decoration: none;
             display: block;
@@ -540,6 +576,7 @@
         }
     </style>
 </head>
+
 <body>
     <header id="header">
         <nav class="container">
@@ -560,7 +597,8 @@
             <p class="hero-subtitle">Framework PHP moderno y ligero con arquitectura MVC</p>
             <div class="hero-buttons">
                 <a href="#instalacion" class="btn btn-primary">Comenzar Ahora</a>
-                <a href="https://github.com/Javierborja09/olyxis" class="btn btn-secondary" target="_blank">Ver en GitHub</a>
+                <a href="https://github.com/Javierborja09/olyxis" class="btn btn-secondary" target="_blank">Ver en
+                    GitHub</a>
             </div>
         </div>
     </section>
@@ -569,24 +607,27 @@
         <div class="container">
             <h2 class="section-title">Características Principales</h2>
             <p class="section-subtitle">Todo lo que necesitas para construir aplicaciones web modernas</p>
-            
+
             <div class="features-grid">
                 <div class="feature-card fade-in">
                     <div class="feature-icon">🏗️</div>
                     <h3>Arquitectura MVC</h3>
-                    <p>Separación clara entre Modelos, Vistas y Controladores. Enrutamiento flexible (GET, POST) y sistema de formularios seguro.</p>
+                    <p>Separación clara entre Modelos, Vistas y Controladores. Enrutamiento flexible (GET, POST) y
+                        sistema de formularios seguro.</p>
                 </div>
 
                 <div class="feature-card fade-in">
                     <div class="feature-icon">⚡</div>
                     <h3>CLI Potente</h3>
-                    <p>Comandos integrados para iniciar servidor de desarrollo y generar controladores automáticamente.</p>
+                    <p>Comandos integrados para iniciar servidor de desarrollo y generar controladores automáticamente.
+                    </p>
                 </div>
 
                 <div class="feature-card fade-in">
                     <div class="feature-icon">🗄️</div>
                     <h3>Base de Datos Optimizada</h3>
-                    <p>PDO con conexiones persistentes, migraciones y esquemas SQL, índices automáticos y soporte completo UTF-8.</p>
+                    <p>PDO con conexiones persistentes, migraciones y esquemas SQL, índices automáticos y soporte
+                        completo UTF-8.</p>
                 </div>
 
                 <div class="feature-card fade-in">
@@ -598,13 +639,15 @@
                 <div class="feature-card fade-in">
                     <div class="feature-icon">🔒</div>
                     <h3>Seguridad Avanzada</h3>
-                    <p>Prepared statements con PDO, protección contra XSS, validación de entrada y pruebas de pentesting superadas.</p>
+                    <p>Prepared statements con PDO, protección contra XSS, validación de entrada y pruebas de pentesting
+                        superadas.</p>
                 </div>
 
                 <div class="feature-card fade-in">
                     <div class="feature-icon">⚙️</div>
                     <h3>Configuración Simple</h3>
-                    <p>Soporte para archivos .env, configuración centralizada y variables de entorno fáciles de gestionar.</p>
+                    <p>Soporte para archivos .env, configuración centralizada y variables de entorno fáciles de
+                        gestionar.</p>
                 </div>
             </div>
         </div>
@@ -680,9 +723,32 @@
                 <div class="step fade-in">
                     <div class="step-number">03</div>
                     <div class="step-content">
+                        <h3>Limpieza (Opcional)</h3>
+                        <p>Una vez inicializado el proyecto, el comando <code>init</code> ya habrá copiado todo lo
+                            necesario a tu directorio actual. Puedes borrar la carpeta temporal <code>olyxis</code> para
+                            mantener tu espacio de trabajo limpio.</p>
+
+                        <div class="step-code">
+                            <span style="color: #6a9955;"># En Linux o macOS:</span><br>
+                            rm -r olyxis<br><br>
+                            <span style="color: #6a9955;"># En Windows (PowerShell):</span><br>
+                            Remove-Item -Recurse -Force olyxis
+                        </div>
+
+                        <p style="font-size: 0.85em; color: #888; margin-top: 10px;">
+                            <i>* Nota: No es necesario ejecutar <code>cd olyxis</code> en ningún momento del
+                                proceso.</i>
+                        </p>
+                    </div>
+                </div>
+
+                <div class="step fade-in">
+                    <div class="step-number">03</div>
+                    <div class="step-content">
                         <h3>Configurar Base de Datos</h3>
                         <p>Crea tu archivo .env con las credenciales</p>
-                        <div class="step-code">DB_HOST=localhost<br>DB_NAME=olyxis_db<br>DB_USER=root<br>DB_PASSWORD=tu_password</div>
+                        <div class="step-code">
+                            DB_HOST=localhost<br>DB_NAME=olyxis_db<br>DB_USER=root<br>DB_PASSWORD=tu_password</div>
                     </div>
                 </div>
 
@@ -772,10 +838,12 @@
             <div class="footer-content">
                 <div class="footer-section">
                     <h4>🚀 Olyxis Framework</h4>
-                    <p>Framework PHP moderno y ligero construido desde cero para desarrolladores que buscan simplicidad y potencia.</p>
+                    <p>Framework PHP moderno y ligero construido desde cero para desarrolladores que buscan simplicidad
+                        y potencia.</p>
                     <div class="social-links">
                         <a href="https://github.com/Javierborja09" target="_blank">GitHub</a>
-                        <a href="https://www.linkedin.com/in/javier-jeanpool-borja-samaniego-a6b8b7300/" target="_blank">LinkedIn</a>
+                        <a href="https://www.linkedin.com/in/javier-jeanpool-borja-samaniego-a6b8b7300/"
+                            target="_blank">LinkedIn</a>
                     </div>
                 </div>
 
@@ -837,4 +905,5 @@
         });
     </script>
 </body>
+
 </html>
