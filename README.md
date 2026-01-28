@@ -1,7 +1,9 @@
 # 🚀 Olyxis Framework - PHP MVC Framework
 
 Un framework PHP moderno y ligero construido desde cero, diseñado para facilitar el desarrollo de aplicaciones web escalables con arquitectura MVC.
-![Logo de Olyxis](https://i.ibb.co/FkfPgBSw/olyxsis.png)
+<div align="center">
+  <img src="https://i.ibb.co/FkfPgBSw/olyxsis.png" alt="Banner" width="100%"/>
+</div>
 **Desarrollado por:** Javier Jeanpool Borja Samaniego
 
 ---
