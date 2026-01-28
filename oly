@@ -1,10 +1,6 @@
 #!/usr/bin/env php
 <?php
 
-// ============================================
-// Olyxis CLI
-// ============================================
-
 $internalAutoloader = __DIR__ . '/vendor/autoload.php';
 $currentAutoloader = getcwd() . '/vendor/autoload.php';
 
@@ -13,52 +9,45 @@ if (file_exists($internalAutoloader)) {
 } elseif (file_exists($currentAutoloader)) {
     require $currentAutoloader;
 } else {
-    die("❌ Error: No se encontró 'vendor/autoload.php'. Ejecuta 'composer dump-autoload' o 'composer install'.\n");
+    die("❌ Error: No se encontró 'vendor/autoload.php'.\n");
 }
 
 use Framework\Console\Commands\InitCommand;
 use Framework\Console\Commands\ServeCommand;
 use Framework\Console\Commands\MakeControllerCommand;
+use Framework\Console\Commands\MakeCrudCommand; // Nuevo import
+
+function displayHelp() {
+    echo "\n";
+    echo "╔════════════════════════════════════════╗\n";
+    echo "║     🚀 Olyxis CLI v2.0 Stable          ║\n";
+    echo "╚════════════════════════════════════════╝\n\n";
+    echo "Comandos disponibles:\n";
+    echo "  ├─ init             Inicializa un nuevo proyecto\n";
+    echo "  ├─ serve            Inicia el servidor de desarrollo\n";
+    echo "  ├─ make:controller  Crea un nuevo controlador\n";
+    echo "  └─ make:crud        Genera un CRUD completo (Model, Controller, View)\n\n"; // Actualizado
+    echo "Ejemplo: php olyxis make:crud Product\n\n";
+}
 
 $command = $argv[1] ?? 'help';
 $args = array_slice($argv, 2);
 
 switch ($command) {
     case 'init':
-        $cmd = new InitCommand();
-        $cmd->execute($args);
+        (new InitCommand())->execute($args);
         break;
-
     case 'serve':
-        $cmd = new ServeCommand();
-        $cmd->execute($args);
+        (new ServeCommand())->execute($args);
         break;
-
     case 'make:controller':
-        $cmd = new MakeControllerCommand();
-        $cmd->execute($args);
+        (new MakeControllerCommand())->execute($args);
         break;
-
+    case 'make:crud': // Nuevo caso
+        (new MakeCrudCommand())->execute($args);
+        break;
     case 'help':
     default:
-        displayHelp();
+        displayHelp(); 
         break;
-}
-
-function displayHelp() {
-    echo "\n";
-    echo "╔════════════════════════════════════════╗\n";
-    echo "║   🚀 Olyxis CLI v1.0             ║\n";
-    echo "╚════════════════════════════════════════╝\n\n";
-    
-    echo "Comandos disponibles:\n";
-    echo "  ├─ init              Inicializa un nuevo proyecto\n";
-    echo "  ├─ serve             Inicia el servidor de desarrollo\n";
-    echo "  └─ make:controller   Crea un nuevo controlador\n";
-    echo "\n";
-    echo "Ejemplos:\n";
-    echo "  php oly init\n";
-    echo "  php oly serve\n";
-    echo "  php oly make:controller User\n";
-    echo "\n";
 }
