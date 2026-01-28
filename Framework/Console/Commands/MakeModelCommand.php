@@ -4,30 +4,32 @@ namespace Framework\Console\Commands;
 
 class MakeModelCommand {
     public function execute(array $args) {
-        $name = $args[0] ?? null;
+        $input = $args[0] ?? null;
 
-        if (!$name) {
+        if (!$input) {
             echo "❌ Error: Debes especificar el nombre del modelo.\n";
             return;
         }
 
+        $className = ucfirst(strtolower($input));
+        $tableName = strtolower($input);
+
         $directory = getcwd() . "/app/Models";
-        $path = "$directory/$name.php";
+        $path = "$directory/$className.php";
 
         if (!is_dir($directory)) {
             mkdir($directory, 0755, true);
         }
 
         if (file_exists($path)) {
-            echo "⚠️  Error: El modelo '$name' ya existe en $path\n";
+            echo "⚠️  Error: El modelo '$className' ya existe en $path\n";
             return; 
         }
 
-
-        $template = "<?php\n\nnamespace App\Models;\n\nuse Framework\Database\Model;\n\nclass $name extends Model {\n    protected \$table = '" . strtolower($name);\n}\n";
+        $template = "<?php\n\nnamespace App\Models;\n\nuse Framework\Database\Model;\n\nclass $className extends Model {\n    protected \$table = '" . $tableName . "';\n}\n";
 
         if (file_put_contents($path, $template)) {
-            echo "✅ Modelo '$name' creado con éxito.\n";
+            echo "✅ Modelo '$className' creado con éxito (Tabla: '$tableName').\n";
         } else {
             echo "❌ Error: No se pudo escribir el archivo en $path\n";
         }
