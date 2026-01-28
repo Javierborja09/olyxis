@@ -28,6 +28,16 @@ class Router
         }
     }
 
+
+
+    /**
+     * Devuelve todas las rutas cargadas en el sistema.
+     */
+    public function getRoutes(): array
+    {
+        return $this->routes;
+    }
+
     /**
      * Procesa la petición y ejecuta la cadena de middlewares y el controlador.
      */
@@ -56,7 +66,7 @@ class Router
 
         // 3. Instanciar el controlador para leer sus middlewares del __construct
         $controllerInstance = new $controllerClass();
-        
+
         // 4. Recopilar Middlewares (Ruta + Controlador)
         $routeMiddlewares = $routeData['middleware'] ?? [];
         $controllerMiddlewares = $controllerInstance->getMiddlewaresForAction($action);

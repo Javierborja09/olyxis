@@ -8,6 +8,9 @@ class Kernel {
         'serve'           => \Framework\Console\Commands\ServeCommand::class,
         'make:controller' => \Framework\Console\Commands\MakeControllerCommand::class,
         'make:crud'       => \Framework\Console\Commands\MakeCrudCommand::class,
+        'make:model'       => \Framework\Console\Commands\MakeModelCommand::class,
+        'route:list'      => \Framework\Console\Commands\RouteListCommand::class,
+        'make:middleware' => \Framework\Console\Commands\MakeMiddlewareCommand::class,
     ];
 
     public function handle(array $argv) {

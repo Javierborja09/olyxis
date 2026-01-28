@@ -6,32 +6,37 @@ use Framework\Console\Command;
 
 class MakeCrudCommand extends Command
 {
-    public function execute(array $args)
+  public function execute(array $args)
     {
         if (empty($args[0])) {
-            $this->error("Debes especificar el nombre de la tabla (ej: productos)");
+            echo "❌ Error: Uso correcto -> php olyxis make:crud NombreEntidad [nombre_tabla]\n";
+            echo "Ejemplo: php olyxis make:crud Product productos\n";
             return;
         }
 
-        $tableName = strtolower($args[0]);
-        // Nombre de la clase en PascalCase (ej: productos -> Productos)
-        $className = ucfirst($tableName);
-        
-        $this->info("🚀 Generando Vista de Datos para la tabla: {$tableName}...");
-        
-        // 1. Generar el Modelo
+        $className = ucfirst($args[0]);
+        $tableName = isset($args[1]) ? strtolower($args[1]) : strtolower($className);
+
+        $paths = [
+            'Models'      => getcwd() . "/app/Models/{$className}.php",
+            'Controllers' => getcwd() . "/app/Controllers/{$className}Controller.php",
+            'Views' => getcwd() . "/app/Views/{$tableName}",
+        ];
+
+        foreach ($paths as $label => $path) {
+            if (file_exists($path)) {
+                echo "⚠️  Abortado: El $label ya existe en: $path\n";
+                return;
+            }
+        }
+
+        echo "🚀 Iniciando generación de CRUD para '{$className}' (Tabla: '{$tableName}')...\n";
         $this->createModel($className, $tableName);
-
-        // 2. Generar el Controlador
         $this->createController($className, $tableName);
-
-        // 3. Generar la Vista (Carpeta con el nombre de la tabla)
         $this->createViews($tableName);
-
-        // 4. Registrar la ruta GET
         $this->addCrudRoutes($tableName, $className . 'Controller');
 
-        $this->success("\n✅ ¡Módulo de lectura para '{$tableName}' generado exitosamente!");
+        echo "\n✅ ¡Módulo Olyxis generado con éxito!\n";
     }
 
     private function createModel($className, $tableName)
@@ -102,8 +107,6 @@ private function createViews($folder)
     .btn-primary { background: #2563eb; color: white; }
     .btn-warning { background: #f59e0b; color: white; }
     .btn-danger { background: #dc2626; color: white; }
-    
-    /* Estilos Modal Nativo */
     .oly-modal { display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); }
     .oly-modal-content { background: white; margin: 10% auto; padding: 20px; width: 400px; border-radius: 8px; position: relative; }
     .form-group { margin-bottom: 15px; }
