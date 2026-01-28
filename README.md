@@ -329,27 +329,107 @@ php oly make:controller Product
 ]
 ```
 
+
+```markdown
+# 🏛️ Guía de Desarrollo: Modelos y Base de Datos
+
+El framework utiliza un sistema de abstracción que separa la lógica del núcleo (**Core**) de la lógica de tu aplicación (**App**).
+
+---
+
+## 🏗️ 1. El Núcleo: `Framework\Core\Model`
+
+Esta clase reside en el motor del framework y automatiza todas las operaciones CRUD. **No debe ser modificada**, ya que proporciona los métodos heredados para todos tus modelos.
+
+```php
+<?php
+
+namespace Framework\Core;
+
+/**
+ * Clase Base Model
+ * Automatiza las operaciones CRUD usando la clase Database.
+ */
+abstract class Model
+{
+    protected $db;
+    protected $table;
+
+    public function __construct()
+    {
+        // Obtiene la instancia única de la conexión (Singleton)
+        $this->db = Database::getInstance();
+    }
+
+    public function all()
+    {
+        return $this->db->all($this->table);
+    }
+
+    public function find($id)
+    {
+        return $this->db->find($this->table, $id);
+    }
+
+    public function create(array $data)
+    {
+        // El modelo expone 'create' pero ejecuta 'insert' en el Core Database
+        return $this->db->insert($this->table, $data);
+    }
+
+    public function update($id, array $data)
+    {
+        return $this->db->update($this->table, $data, "id = ?", [$id]);
+    }
+
+    public function delete($id)
+    {
+        return $this->db->delete($this->table, "id = ?", [$id]);
+    }
+    
+    public function where($condition, $params = [])
+    {
+        $sql = "SELECT * FROM {$this->table} WHERE {$condition}";
+        return $this->db->fetchAll($sql, $params);
+    }
+}
+```
+
+---
+
+## 📦 2. Tus Modelos: `App\Models`
+
+Cada modelo de tu aplicación extiende la clase base del Core. Solo necesitas definir la tabla asociada.
+
 ### Crear un Modelo
 
 ```php
 <?php
 namespace App\Models;
 
-class Product extends Model {
+use Framework\Core\Model;
+
+class Product extends Model 
+{
     protected $table = 'products';
 }
 ```
 
-### Usar en el Controlador
+---
+
+## 🎮 3. Usar Modelos en Controladores
 
 ```php
 <?php
 namespace App\Controllers;
 
 use App\Models\Product;
+use Framework\Core\Controller;
 
-class ProductController extends Controller {
-    public function index($request) {
+class ProductController extends Controller 
+{
+    public function index($request) 
+    {
         $productModel = new Product();
         $products = $productModel->all();
         
@@ -357,49 +437,186 @@ class ProductController extends Controller {
             'products' => $products
         ]);
     }
+    
+    public function show($request) 
+    {
+        $productModel = new Product();
+        $id = $request['params']['id'];
+        $product = $productModel->find($id);
+        
+        return $this->view('products/show', [
+            'product' => $product
+        ]);
+    }
+    
+    public function store($request) 
+    {
+        $productModel = new Product();
+        $data = [
+            'name' => $request['post']['name'],
+            'price' => $request['post']['price'],
+            'description' => $request['post']['description']
+        ];
+        
+        $productModel->create($data);
+        
+        return $this->redirect('/products');
+    }
 }
-```
-
-### Crear una Vista
-
-```php
-<!-- app/Views/products/index.php -->
-<div class="grid md:grid-cols-3 gap-6">
-    <?php foreach ($products as $product): ?>
-        <div class="bg-white rounded-lg shadow-lg p-6">
-            <h2 class="text-xl font-bold"><?php echo $product['name']; ?></h2>
-            <p class="text-gray-600">$<?php echo $product['price']; ?></p>
-        </div>
-    <?php endforeach; ?>
-</div>
 ```
 
 ---
 
-## 🗄️ Gestión de Base de Datos
+## 🎨 4. Crear Vistas
 
-### Usar el Modelo
+```php
+<!-- app/Views/products/index.php -->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Productos</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100">
+    <div class="container mx-auto px-4 py-8">
+        <h1 class="text-3xl font-bold mb-6">Catálogo de Productos</h1>
+        
+        <div class="grid md:grid-cols-3 gap-6">
+            <?php foreach ($products as $product): ?>
+                <div class="bg-white rounded-lg shadow-lg p-6 hover:shadow-xl transition">
+                    <h2 class="text-xl font-bold mb-2"><?php echo htmlspecialchars($product['name']); ?></h2>
+                    <p class="text-gray-600 mb-4"><?php echo htmlspecialchars($product['description']); ?></p>
+                    <p class="text-2xl font-bold text-green-600">$<?php echo number_format($product['price'], 2); ?></p>
+                    <a href="/products/<?php echo $product['id']; ?>" 
+                       class="mt-4 inline-block bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
+                        Ver Detalles
+                    </a>
+                </div>
+            <?php endforeach; ?>
+        </div>
+    </div>
+</body>
+</html>
+```
+
+---
+
+## 🗄️ 5. Operaciones CRUD Completas
+
+### Obtener todos los registros
+
+```php
+$product = new Product();
+$all = $product->all();
+```
+
+### Obtener un registro por ID
+
+```php
+$product = new Product();
+$one = $product->find(1);
+```
+
+### Crear un nuevo registro
+
+```php
+$product = new Product();
+$product->create([
+    'name' => 'Laptop HP',
+    'price' => 1299.99,
+    'description' => 'Laptop de alto rendimiento'
+]);
+```
+
+### Actualizar un registro
+
+```php
+$product = new Product();
+$product->update(1, [
+    'price' => 999.99,
+    'description' => 'Laptop en oferta'
+]);
+```
+
+### Eliminar un registro
+
+```php
+$product = new Product();
+$product->delete(1);
+```
+
+### Consultas personalizadas con WHERE
 
 ```php
 $product = new Product();
 
-// Obtener todos los registros
-$all = $product->all();
+// Productos con precio mayor a 500
+$expensive = $product->where('price > ?', [500]);
 
-// Obtener un registro por ID
-$one = $product->find(1);
+// Productos por nombre
+$laptops = $product->where('name LIKE ?', ['%Laptop%']);
 
-// Crear un nuevo registro
-$product->create([
-    'name' => 'Laptop',
-    'price' => 1299.99
-]);
+// Productos activos
+$active = $product->where('status = ?', ['active']);
+```
 
-// Actualizar
-$product->update(1, ['price' => 999.99]);
+---
 
-// Eliminar
-$product->delete(1);
+## 🔒 6. Buenas Prácticas
+
+### Validación de Datos
+
+```php
+public function store($request) 
+{
+    // Validar datos antes de crear
+    $errors = [];
+    
+    if (empty($request['post']['name'])) {
+        $errors[] = 'El nombre es requerido';
+    }
+    
+    if (!is_numeric($request['post']['price']) || $request['post']['price'] <= 0) {
+        $errors[] = 'El precio debe ser un número positivo';
+    }
+    
+    if (!empty($errors)) {
+        return $this->view('products/create', ['errors' => $errors]);
+    }
+    
+    $productModel = new Product();
+    $productModel->create($request['post']);
+    
+    return $this->redirect('/products');
+}
+```
+
+### Sanitización de Salida
+
+```php
+<!-- Siempre usar htmlspecialchars para prevenir XSS -->
+<h2><?php echo htmlspecialchars($product['name']); ?></h2>
+<p><?php echo htmlspecialchars($product['description']); ?></p>
+```
+
+### Manejo de Errores
+
+```php
+public function show($request) 
+{
+    $productModel = new Product();
+    $product = $productModel->find($request['params']['id']);
+    
+    if (!$product) {
+        return $this->view('errors/404', [
+            'message' => 'Producto no encontrado'
+        ]);
+    }
+    
+    return $this->view('products/show', ['product' => $product]);
+}
 ```
 
 ### Usar la Clase Database Directamente
