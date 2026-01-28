@@ -425,10 +425,11 @@ namespace App\Controllers;
 
 use App\Models\Product;
 use Framework\Core\Controller;
+use Framework\Core\Request;
 
 class ProductController extends Controller 
 {
-    public function index($request) 
+    public function index(Request $request) 
     {
         $productModel = new Product();
         $products = $productModel->all();
@@ -438,27 +439,69 @@ class ProductController extends Controller
         ]);
     }
     
-    public function show($request) 
+    public function show(Request $request) 
     {
         $productModel = new Product();
-        $id = $request['params']['id'];
+        $id = $request->get('id');
         $product = $productModel->find($id);
+        
+        if (!$product) {
+            $request->setFlash('error', 'Producto no encontrado');
+            return $this->redirect('/products');
+        }
         
         return $this->view('products/show', [
             'product' => $product
         ]);
     }
     
-    public function store($request) 
+    public function store(Request $request) 
     {
         $productModel = new Product();
-        $data = [
-            'name' => $request['post']['name'],
-            'price' => $request['post']['price'],
-            'description' => $request['post']['description']
-        ];
+        $data = $request->post();
         
-        $productModel->create($data);
+        // Validación básica
+        if (empty($data['name']) || empty($data['price'])) {
+            $request->setFlash('error', 'Nombre y precio son requeridos');
+            return $this->redirect('/products/create');
+        }
+        
+        if ($productModel->create($data)) {
+            $request->setFlash('success', '¡Producto creado exitosamente!');
+        } else {
+            $request->setFlash('error', 'Error al crear el producto');
+        }
+        
+        return $this->redirect('/products');
+    }
+    
+    public function update(Request $request) 
+    {
+        $productModel = new Product();
+        $id = $request->post('id');
+        $data = $request->post();
+        
+        unset($data['id']); // Removemos el ID de los datos a actualizar
+        
+        if ($productModel->update($id, $data)) {
+            $request->setFlash('success', '¡Producto actualizado exitosamente!');
+        } else {
+            $request->setFlash('error', 'Error al actualizar el producto');
+        }
+        
+        return $this->redirect('/products');
+    }
+    
+    public function destroy(Request $request) 
+    {
+        $productModel = new Product();
+        $id = $request->post('id');
+        
+        if ($productModel->delete($id)) {
+            $request->setFlash('success', '¡Producto eliminado exitosamente!');
+        } else {
+            $request->setFlash('error', 'Error al eliminar el producto');
+        }
         
         return $this->redirect('/products');
     }
@@ -482,6 +525,19 @@ class ProductController extends Controller
 <body class="bg-gray-100">
     <div class="container mx-auto px-4 py-8">
         <h1 class="text-3xl font-bold mb-6">Catálogo de Productos</h1>
+        
+        <!-- Mensajes Flash -->
+        <?php if ($request->hasFlash('success')): ?>
+            <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded mb-4">
+                <?php echo $request->getFlash('success'); ?>
+            </div>
+        <?php endif; ?>
+        
+        <?php if ($request->hasFlash('error')): ?>
+            <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4">
+                <?php echo $request->getFlash('error'); ?>
+            </div>
+        <?php endif; ?>
         
         <div class="grid md:grid-cols-3 gap-6">
             <?php foreach ($products as $product): ?>
@@ -522,29 +578,52 @@ $one = $product->find(1);
 ### Crear un nuevo registro
 
 ```php
-$product = new Product();
-$product->create([
-    'name' => 'Laptop HP',
-    'price' => 1299.99,
-    'description' => 'Laptop de alto rendimiento'
-]);
+public function store(Request $request) 
+{
+    $product = new Product();
+    $data = $request->post(); // Obtiene todos los datos POST
+    
+    if ($product->create($data)) {
+        $request->setFlash('success', '¡Producto creado exitosamente!');
+    }
+    
+    return $this->redirect('/products');
+}
 ```
 
 ### Actualizar un registro
 
 ```php
-$product = new Product();
-$product->update(1, [
-    'price' => 999.99,
-    'description' => 'Laptop en oferta'
-]);
+public function update(Request $request) 
+{
+    $product = new Product();
+    $id = $request->post('id');
+    $data = $request->post();
+    
+    unset($data['id']); // Removemos el ID de los datos
+    
+    if ($product->update($id, $data)) {
+        $request->setFlash('success', '¡Producto actualizado exitosamente!');
+    }
+    
+    return $this->redirect('/products');
+}
 ```
 
 ### Eliminar un registro
 
 ```php
-$product = new Product();
-$product->delete(1);
+public function destroy(Request $request) 
+{
+    $product = new Product();
+    $id = $request->post('id');
+    
+    if ($product->delete($id)) {
+        $request->setFlash('success', '¡Producto eliminado exitosamente!');
+    }
+    
+    return $this->redirect('/products');
+}
 ```
 
 ### Consultas personalizadas con WHERE
@@ -569,25 +648,27 @@ $active = $product->where('status = ?', ['active']);
 ### Validación de Datos
 
 ```php
-public function store($request) 
+public function store(Request $request) 
 {
+    $data = $request->post();
+    
     // Validar datos antes de crear
-    $errors = [];
-    
-    if (empty($request['post']['name'])) {
-        $errors[] = 'El nombre es requerido';
+    if (empty($data['name'])) {
+        $request->setFlash('error', 'El nombre es requerido');
+        return $this->redirect('/products/create');
     }
     
-    if (!is_numeric($request['post']['price']) || $request['post']['price'] <= 0) {
-        $errors[] = 'El precio debe ser un número positivo';
-    }
-    
-    if (!empty($errors)) {
-        return $this->view('products/create', ['errors' => $errors]);
+    if (!is_numeric($data['price']) || $data['price'] <= 0) {
+        $request->setFlash('error', 'El precio debe ser un número positivo');
+        return $this->redirect('/products/create');
     }
     
     $productModel = new Product();
-    $productModel->create($request['post']);
+    if ($productModel->create($data)) {
+        $request->setFlash('success', '¡Producto creado exitosamente!');
+    } else {
+        $request->setFlash('error', 'Error al crear el producto');
+    }
     
     return $this->redirect('/products');
 }
@@ -604,19 +685,38 @@ public function store($request)
 ### Manejo de Errores
 
 ```php
-public function show($request) 
+public function show(Request $request) 
 {
     $productModel = new Product();
-    $product = $productModel->find($request['params']['id']);
+    $id = $request->get('id');
+    $product = $productModel->find($id);
     
     if (!$product) {
-        return $this->view('errors/404', [
-            'message' => 'Producto no encontrado'
-        ]);
+        $request->setFlash('error', 'Producto no encontrado');
+        return $this->redirect('/products');
     }
     
     return $this->view('products/show', ['product' => $product]);
 }
+```
+
+### Uso de Mensajes Flash
+
+```php
+// Establecer mensaje flash
+$request->setFlash('success', '¡Operación exitosa!');
+$request->setFlash('error', 'Ocurrió un error');
+$request->setFlash('warning', 'Advertencia importante');
+
+// Verificar si existe un mensaje flash
+if ($request->hasFlash('success')) {
+    echo $request->getFlash('success');
+}
+
+// Redirección con mensaje flash encadenado
+return $request->redirect('/products')
+               ->with('success', '¡Producto creado!')
+               ->exit();
 ```
 
 ### Usar la Clase Database Directamente
