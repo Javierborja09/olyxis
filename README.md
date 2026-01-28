@@ -7,7 +7,9 @@ Un framework PHP moderno y ligero construido desde cero, diseñado para facilita
 **Desarrollado por:** Javier Jeanpool Borja Samaniego
 
 ---
+## 📖 Documentación Web Completa
 
+**[🌐 Ver Documentación Web Interactiva](./docs/olyxis-docs.html)**
 
 ## 🎯 Características Principales
 

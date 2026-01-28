@@ -1,0 +1,840 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Olyxis Framework - Documentación</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #FF6B35;
+            --secondary: #004E89;
+            --accent: #F77F00;
+            --dark: #1A1A2E;
+            --darker: #0F0F1E;
+            --light: #EAEAEA;
+            --code-bg: #1E1E2E;
+            --success: #10B981;
+            --warning: #F59E0B;
+        }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            background: linear-gradient(135deg, var(--darker) 0%, var(--dark) 100%);
+            color: var(--light);
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        /* Header */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(26, 26, 46, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 107, 53, 0.2);
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        header.scrolled {
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.2rem 2rem;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: -0.5px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--light);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+            padding: 0.3rem 0;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        /* Hero Section */
+        .hero {
+            margin-top: 80px;
+            padding: 8rem 0 6rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255, 107, 53, 0.1) 0%, transparent 70%);
+            animation: pulse 15s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 0.5; }
+            50% { transform: scale(1.2); opacity: 0.8; }
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero h1 {
+            font-size: 5rem;
+            font-weight: 800;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, #fff, var(--primary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: -2px;
+            animation: fadeInUp 0.8s ease;
+        }
+
+        .hero-subtitle {
+            font-size: 1.5rem;
+            color: rgba(234, 234, 234, 0.8);
+            margin-bottom: 3rem;
+            animation: fadeInUp 0.8s ease 0.2s backwards;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            animation: fadeInUp 0.8s ease 0.4s backwards;
+        }
+
+        .btn {
+            padding: 1rem 2.5rem;
+            font-size: 1.1rem;
+            font-weight: 600;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            color: white;
+            box-shadow: 0 4px 20px rgba(255, 107, 53, 0.4);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 30px rgba(255, 107, 53, 0.6);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--light);
+            border: 2px solid var(--primary);
+        }
+
+        .btn-secondary:hover {
+            background: var(--primary);
+            transform: translateY(-2px);
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Features Grid */
+        .features {
+            padding: 6rem 0;
+            background: linear-gradient(180deg, transparent, rgba(255, 107, 53, 0.05));
+        }
+
+        .section-title {
+            font-size: 3rem;
+            font-weight: 800;
+            text-align: center;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, #fff, var(--primary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            color: rgba(234, 234, 234, 0.7);
+            font-size: 1.2rem;
+            margin-bottom: 4rem;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .feature-card {
+            background: rgba(30, 30, 46, 0.6);
+            border: 1px solid rgba(255, 107, 53, 0.2);
+            border-radius: 20px;
+            padding: 2.5rem;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary);
+            box-shadow: 0 10px 40px rgba(255, 107, 53, 0.3);
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .feature-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--primary);
+        }
+
+        .feature-card p {
+            color: rgba(234, 234, 234, 0.8);
+            line-height: 1.8;
+        }
+
+        /* Code Section */
+        .code-section {
+            padding: 6rem 0;
+        }
+
+        .code-container {
+            background: var(--code-bg);
+            border-radius: 20px;
+            overflow: hidden;
+            border: 1px solid rgba(255, 107, 53, 0.3);
+            box-shadow: 0 10px 50px rgba(0, 0, 0, 0.5);
+        }
+
+        .code-header {
+            background: rgba(255, 107, 53, 0.1);
+            padding: 1rem 2rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            border-bottom: 1px solid rgba(255, 107, 53, 0.3);
+        }
+
+        .code-dots {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+
+        .dot.red { background: #ff5f56; }
+        .dot.yellow { background: #ffbd2e; }
+        .dot.green { background: #27c93f; }
+
+        .code-title {
+            color: var(--light);
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.9rem;
+        }
+
+        pre {
+            padding: 2rem;
+            overflow-x: auto;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.95rem;
+            line-height: 1.8;
+        }
+
+        code {
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .code-comment { color: #6A9955; }
+        .code-keyword { color: #C586C0; }
+        .code-string { color: #CE9178; }
+        .code-function { color: #DCDCAA; }
+        .code-class { color: #4EC9B0; }
+
+        /* Installation Section */
+        .installation {
+            padding: 6rem 0;
+            background: linear-gradient(180deg, rgba(0, 78, 137, 0.05), transparent);
+        }
+
+        .install-steps {
+            display: grid;
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .step {
+            background: rgba(30, 30, 46, 0.6);
+            border-left: 4px solid var(--primary);
+            border-radius: 15px;
+            padding: 2rem;
+            display: flex;
+            gap: 2rem;
+            align-items: flex-start;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+
+        .step:hover {
+            transform: translateX(10px);
+            border-left-color: var(--accent);
+        }
+
+        .step-number {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--primary);
+            min-width: 60px;
+        }
+
+        .step-content h3 {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            color: var(--accent);
+        }
+
+        .step-content p {
+            color: rgba(234, 234, 234, 0.8);
+            margin-bottom: 1rem;
+        }
+
+        .step-code {
+            background: var(--code-bg);
+            padding: 1rem 1.5rem;
+            border-radius: 10px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.9rem;
+            color: var(--accent);
+            border: 1px solid rgba(255, 107, 53, 0.2);
+        }
+
+        /* Documentation Sections */
+        .docs-section {
+            padding: 4rem 0;
+        }
+
+        .docs-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .doc-card {
+            background: rgba(30, 30, 46, 0.6);
+            border: 1px solid rgba(255, 107, 53, 0.2);
+            border-radius: 15px;
+            padding: 2rem;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .doc-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent);
+            box-shadow: 0 10px 40px rgba(247, 127, 0, 0.3);
+        }
+
+        .doc-card h3 {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            color: var(--accent);
+        }
+
+        .doc-card ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .doc-card li {
+            padding: 0.5rem 0;
+            color: rgba(234, 234, 234, 0.8);
+            padding-left: 1.5rem;
+            position: relative;
+        }
+
+        .doc-card li::before {
+            content: '→';
+            position: absolute;
+            left: 0;
+            color: var(--primary);
+            font-weight: bold;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--darker);
+            padding: 4rem 0 2rem;
+            border-top: 1px solid rgba(255, 107, 53, 0.2);
+            margin-top: 6rem;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+
+        .footer-section h4 {
+            color: var(--primary);
+            font-size: 1.3rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .footer-section p, .footer-section a {
+            color: rgba(234, 234, 234, 0.7);
+            text-decoration: none;
+            display: block;
+            margin-bottom: 0.5rem;
+            transition: color 0.3s ease;
+        }
+
+        .footer-section a:hover {
+            color: var(--primary);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 107, 53, 0.2);
+            color: rgba(234, 234, 234, 0.5);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .social-links a {
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 107, 53, 0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .social-links a:hover {
+            background: var(--primary);
+            transform: translateY(-3px);
+        }
+
+        /* Smooth Scroll */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 3rem;
+            }
+
+            .hero-subtitle {
+                font-size: 1.2rem;
+            }
+
+            .hero-buttons {
+                flex-direction: column;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+        }
+
+        /* Scroll animations */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+    <header id="header">
+        <nav class="container">
+            <div class="logo">🚀 Olyxis</div>
+            <ul class="nav-links">
+                <li><a href="#inicio">Inicio</a></li>
+                <li><a href="#caracteristicas">Características</a></li>
+                <li><a href="#instalacion">Instalación</a></li>
+                <li><a href="#documentacion">Documentación</a></li>
+                <li><a href="#contacto">Contacto</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section id="inicio" class="hero">
+        <div class="container hero-content">
+            <h1>Olyxis Framework</h1>
+            <p class="hero-subtitle">Framework PHP moderno y ligero con arquitectura MVC</p>
+            <div class="hero-buttons">
+                <a href="#instalacion" class="btn btn-primary">Comenzar Ahora</a>
+                <a href="https://github.com/Javierborja09/olyxis" class="btn btn-secondary" target="_blank">Ver en GitHub</a>
+            </div>
+        </div>
+    </section>
+
+    <section id="caracteristicas" class="features">
+        <div class="container">
+            <h2 class="section-title">Características Principales</h2>
+            <p class="section-subtitle">Todo lo que necesitas para construir aplicaciones web modernas</p>
+            
+            <div class="features-grid">
+                <div class="feature-card fade-in">
+                    <div class="feature-icon">🏗️</div>
+                    <h3>Arquitectura MVC</h3>
+                    <p>Separación clara entre Modelos, Vistas y Controladores. Enrutamiento flexible (GET, POST) y sistema de formularios seguro.</p>
+                </div>
+
+                <div class="feature-card fade-in">
+                    <div class="feature-icon">⚡</div>
+                    <h3>CLI Potente</h3>
+                    <p>Comandos integrados para iniciar servidor de desarrollo y generar controladores automáticamente.</p>
+                </div>
+
+                <div class="feature-card fade-in">
+                    <div class="feature-icon">🗄️</div>
+                    <h3>Base de Datos Optimizada</h3>
+                    <p>PDO con conexiones persistentes, migraciones y esquemas SQL, índices automáticos y soporte completo UTF-8.</p>
+                </div>
+
+                <div class="feature-card fade-in">
+                    <div class="feature-icon">🎨</div>
+                    <h3>Frontend Moderno</h3>
+                    <p>Integración con Tailwind CSS, componentes responsivos y diseño moderno y profesional.</p>
+                </div>
+
+                <div class="feature-card fade-in">
+                    <div class="feature-icon">🔒</div>
+                    <h3>Seguridad Avanzada</h3>
+                    <p>Prepared statements con PDO, protección contra XSS, validación de entrada y pruebas de pentesting superadas.</p>
+                </div>
+
+                <div class="feature-card fade-in">
+                    <div class="feature-icon">⚙️</div>
+                    <h3>Configuración Simple</h3>
+                    <p>Soporte para archivos .env, configuración centralizada y variables de entorno fáciles de gestionar.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="code-section">
+        <div class="container">
+            <h2 class="section-title">Código Limpio y Elegante</h2>
+            <p class="section-subtitle">Desarrolla rápidamente con una sintaxis clara y expresiva</p>
+
+            <div class="code-container">
+                <div class="code-header">
+                    <div class="code-dots">
+                        <div class="dot red"></div>
+                        <div class="dot yellow"></div>
+                        <div class="dot green"></div>
+                    </div>
+                    <div class="code-title">ProductController.php</div>
+                </div>
+                <pre><code><span class="code-comment">// Ejemplo de controlador simple y potente</span>
+<span class="code-keyword">class</span> <span class="code-class">ProductController</span> <span class="code-keyword">extends</span> <span class="code-class">Controller</span> 
+{
+    <span class="code-keyword">public function</span> <span class="code-function">index</span>(<span class="code-class">Request</span> $request) 
+    {
+        $productModel = <span class="code-keyword">new</span> <span class="code-class">Product</span>();
+        $products = $productModel-><span class="code-function">all</span>();
+        
+        <span class="code-keyword">return</span> $<span class="code-keyword">this</span>-><span class="code-function">view</span>(<span class="code-string">'products/index'</span>, [
+            <span class="code-string">'products'</span> => $products
+        ]);
+    }
+    
+    <span class="code-keyword">public function</span> <span class="code-function">store</span>(<span class="code-class">Request</span> $request) 
+    {
+        $productModel = <span class="code-keyword">new</span> <span class="code-class">Product</span>();
+        $data = $request-><span class="code-function">post</span>();
+        
+        <span class="code-keyword">if</span> ($productModel-><span class="code-function">create</span>($data)) {
+            $request-><span class="code-function">setFlash</span>(<span class="code-string">'success'</span>, <span class="code-string">'¡Producto creado!'</span>);
+        }
+        
+        <span class="code-keyword">return</span> $<span class="code-keyword">this</span>-><span class="code-function">redirect</span>(<span class="code-string">'/products'</span>);
+    }
+}</code></pre>
+            </div>
+        </div>
+    </section>
+
+    <section id="instalacion" class="installation">
+        <div class="container">
+            <h2 class="section-title">Instalación Rápida</h2>
+            <p class="section-subtitle">Empieza a desarrollar en menos de 5 minutos</p>
+
+            <div class="install-steps">
+                <div class="step fade-in">
+                    <div class="step-number">01</div>
+                    <div class="step-content">
+                        <h3>Clonar el Repositorio</h3>
+                        <p>Descarga el framework desde GitHub</p>
+                        <div class="step-code">git clone https://github.com/Javierborja09/olyxis.git</div>
+                    </div>
+                </div>
+
+                <div class="step fade-in">
+                    <div class="step-number">02</div>
+                    <div class="step-content">
+                        <h3>Inicializar Proyecto</h3>
+                        <p>Configura la estructura de carpetas (opcional para nuevos proyectos)</p>
+                        <div class="step-code">php olyxis/oly init</div>
+                    </div>
+                </div>
+
+                <div class="step fade-in">
+                    <div class="step-number">03</div>
+                    <div class="step-content">
+                        <h3>Configurar Base de Datos</h3>
+                        <p>Crea tu archivo .env con las credenciales</p>
+                        <div class="step-code">DB_HOST=localhost<br>DB_NAME=olyxis_db<br>DB_USER=root<br>DB_PASSWORD=tu_password</div>
+                    </div>
+                </div>
+
+                <div class="step fade-in">
+                    <div class="step-number">04</div>
+                    <div class="step-content">
+                        <h3>Iniciar Servidor</h3>
+                        <p>Levanta el servidor de desarrollo</p>
+                        <div class="step-code">php oly serve localhost 8000</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="documentacion" class="docs-section">
+        <div class="container">
+            <h2 class="section-title">Documentación Completa</h2>
+            <p class="section-subtitle">Guías detalladas para cada componente del framework</p>
+
+            <div class="docs-grid">
+                <div class="doc-card fade-in">
+                    <h3>📋 Requisitos</h3>
+                    <ul>
+                        <li>PHP 8.0 o superior</li>
+                        <li>MySQL 8.0 o superior</li>
+                        <li>Composer (última versión)</li>
+                        <li>SO: Windows, Linux, macOS</li>
+                    </ul>
+                </div>
+
+                <div class="doc-card fade-in">
+                    <h3>🎯 Características</h3>
+                    <ul>
+                        <li>Middlewares personalizados</li>
+                        <li>Sistema de ventas multi-producto</li>
+                        <li>Reportes y KPIs integrados</li>
+                        <li>Stored Procedures</li>
+                    </ul>
+                </div>
+
+                <div class="doc-card fade-in">
+                    <h3>🔧 Comandos CLI</h3>
+                    <ul>
+                        <li>php oly serve - Iniciar servidor</li>
+                        <li>php oly init - Inicializar proyecto</li>
+                        <li>php oly make:controller - Crear controlador</li>
+                        <li>Más comandos en desarrollo</li>
+                    </ul>
+                </div>
+
+                <div class="doc-card fade-in">
+                    <h3>🔒 Seguridad</h3>
+                    <ul>
+                        <li>Prepared Statements (SQL Injection)</li>
+                        <li>Protección XSS integrada</li>
+                        <li>CSRF Protection</li>
+                        <li>Validación de entrada robusta</li>
+                    </ul>
+                </div>
+
+                <div class="doc-card fade-in">
+                    <h3>📁 Estructura MVC</h3>
+                    <ul>
+                        <li>Controllers - Lógica de negocio</li>
+                        <li>Models - Gestión de datos</li>
+                        <li>Views - Presentación</li>
+                        <li>Routes - Enrutamiento flexible</li>
+                    </ul>
+                </div>
+
+                <div class="doc-card fade-in">
+                    <h3>🚀 Roadmap</h3>
+                    <ul>
+                        <li>Autenticación integrada</li>
+                        <li>Sistema de permisos (ACL)</li>
+                        <li>Generador de CRUD</li>
+                        <li>API REST automática</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer id="contacto">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>🚀 Olyxis Framework</h4>
+                    <p>Framework PHP moderno y ligero construido desde cero para desarrolladores que buscan simplicidad y potencia.</p>
+                    <div class="social-links">
+                        <a href="https://github.com/Javierborja09" target="_blank">GitHub</a>
+                        <a href="https://www.linkedin.com/in/javier-jeanpool-borja-samaniego-a6b8b7300/" target="_blank">LinkedIn</a>
+                    </div>
+                </div>
+
+                <div class="footer-section">
+                    <h4>Enlaces Rápidos</h4>
+                    <a href="#inicio">Inicio</a>
+                    <a href="#caracteristicas">Características</a>
+                    <a href="#instalacion">Instalación</a>
+                    <a href="#documentacion">Documentación</a>
+                </div>
+
+                <div class="footer-section">
+                    <h4>Recursos</h4>
+                    <a href="https://github.com/Javierborja09/olyxis" target="_blank">GitHub Repository</a>
+                    <a href="https://github.com/Javierborja09/olyxis/issues" target="_blank">Reportar Bug</a>
+                    <a href="https://github.com/Javierborja09/olyxis/discussions" target="_blank">Discusiones</a>
+                </div>
+
+                <div class="footer-section">
+                    <h4>Contacto</h4>
+                    <p>Desarrollado por:<br><strong>Javier Jeanpool Borja Samaniego</strong></p>
+                    <a href="mailto:javierborjasamaniego@gmail.com">javierborjasamaniego@gmail.com</a>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>&copy; 2026 Olyxis Framework. Licencia MIT. Versión 1.0.0</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Header scroll effect
+        window.addEventListener('scroll', () => {
+            const header = document.getElementById('header');
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
+        // Fade in animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-in').forEach(el => {
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>
