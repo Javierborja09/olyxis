@@ -24,7 +24,7 @@ class MakeModelCommand {
         }
 
 
-        $template = "<?php\n\nnamespace App\Models;\n\nuse Framework\Database\Model;\n\nclass $name extends Model {\n    protected \$table = '" . strtolower($name) . "s';\n}\n";
+        $template = "<?php\n\nnamespace App\Models;\n\nuse Framework\Database\Model;\n\nclass $name extends Model {\n    protected \$table = '" . strtolower($name);\n}\n";
 
         if (file_put_contents($path, $template)) {
             echo "✅ Modelo '$name' creado con éxito.\n";

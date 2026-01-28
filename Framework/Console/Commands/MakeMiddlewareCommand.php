@@ -38,6 +38,6 @@ class MakeMiddlewareCommand
 
     private function getTemplate($name)
     {
-        return "<?php\n\nnamespace App\Middlewares;\n\nuse Framework\Core\Request;\n\nclass $name\n{\n    /**\n     * Procesa la petición.\n     *\n     * @param Request \$request\n     * @param callable \$next\n     * @return mixed\n     */\n    public function handle(Request \$request, callable \$next)\n    {\n        // Lógica antes del controlador\n\n        return \$next(\$request);\n    }\n}\n";
+        return "<?php\n\nnamespace App\Middlewares;\n\nuse Framework\Core\Request;\nuse Framework\Core\Middleware;\n\nclass $name\n implements Middleware {\n    /**\n     * Procesa la petición.\n     *\n     * @param Request \$request\n     * @param callable \$next\n     * @return mixed\n     */\n    public function handle(Request \$request, callable \$next)\n    {\n        // Lógica antes del controlador\n\n        return \$next(\$request);\n    }\n}\n";
     }
 }
