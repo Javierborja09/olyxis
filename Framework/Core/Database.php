@@ -155,6 +155,28 @@ class Database
         }
     }
 
+
+    /**
+     * Obtiene todos los registros de una tabla.
+     * @param string $table
+     * @return array
+     */
+    public function all($table)
+    {
+        return $this->fetchAll("SELECT * FROM {$table}");
+    }
+
+    /**
+     * Busca un registro por su ID primario.
+     * @param string $table
+     * @param mixed $id
+     * @return array|false
+     */
+    public function find($table, $id)
+    {
+        return $this->fetch("SELECT * FROM {$table} WHERE id = ?", [$id]);
+    }
+
     /**
      * Obtiene una única fila de un resultado.
      */
