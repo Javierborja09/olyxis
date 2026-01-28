@@ -159,17 +159,6 @@ return [
 ];
 PHP;
         $this->createFile('config/routes.php', $routesContent);
-
-        $appContent = <<<'PHP'
-<?php
-return [
-    'name' => 'Mi Aplicación',
-    'env' => 'local',
-    'debug' => true,
-    'url' => 'http://localhost:8000',
-];
-PHP;
-        $this->createFile('config/app.php', $appContent);
     }
 
     private function createControllers()
