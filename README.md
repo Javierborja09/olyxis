@@ -9,7 +9,7 @@ Un framework PHP moderno y ligero construido desde cero, diseñado para facilita
 ---
 ## 📖 Documentación Web Completa
 
-**[🌐 Ver Documentación Web Interactiva](https://javierborja09.github.io/olyxis/olyxis-docs.html)**
+**[🌐 Ver Documentación](https://javierborja09.github.io/olyxis/olyxis-docs.html)**
 
 ## 🎯 Características Principales
 
