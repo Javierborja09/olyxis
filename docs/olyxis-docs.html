@@ -835,6 +835,77 @@
         </div>
     </section>
 
+
+
+    <!-- Sección de Consulta APIS externas -->
+<section class="code-section">
+        <div class="container">
+            <h2 class="section-title">Consumo de APIs y Alertas</h2>
+            <p class="section-subtitle">Vínculo entre controlador, vista y componentes de notificación</p>
+
+            <div class="row">
+                <div class="col-md-12 mb-4">
+                    <div class="code-container">
+                        <div class="code-header">
+                            <div class="code-dots">
+                                <div class="dot red"></div><div class="dot yellow"></div><div class="dot green"></div>
+                            </div>
+                            <div class="code-title">ApiConsumeController.php</div>
+                        </div>
+                        <pre><code><span class="code-keyword">public function</span> <span class="code-function">buscarDni</span>($request) {
+    $dni = $request-><span class="code-function">post</span>(<span class="code-string">'dni'</span>);
+    $client = <span class="code-keyword">new</span> <span class="code-class">HttpClient</span>([<span class="code-string">'baseURL'</span> => <span class="code-string">'https://api.perudevs.com/api/v1'</span>]);
+
+    <span class="code-keyword">try</span> {
+        $response = $client-><span class="code-function">get</span>(<span class="code-string">'dni/complete'</span>, [<span class="code-string">'params'</span> => [<span class="code-string">'document'</span> => $dni, <span class="code-string">'key'</span> => <span class="code-keyword">$this</span>->apiToken]]);
+        $resData = $response-><span class="code-function">json</span>();
+
+        <span class="code-keyword">if</span> ($resData[<span class="code-string">'estado'</span>]) {
+            $request-><span class="code-function">setFlash</span>(<span class="code-string">'success'</span>, <span class="code-string">"DNI encontrado con éxito"</span>);
+            <span class="code-keyword">return</span> <span class="code-keyword">$this</span>-><span class="code-function">view</span>(<span class="code-string">'api/index'</span>, [<span class="code-string">'resultado'</span> => $resData[<span class="code-string">'resultado'</span>]]);
+        }
+        $request-><span class="code-function">setFlash</span>(<span class="code-string">'error'</span>, <span class="code-string">"No se encontró el documento"</span>);
+    } <span class="code-keyword">catch</span> (<span class="code-class">Exception</span> $e) {
+        $request-><span class="code-function">setFlash</span>(<span class="code-string">'error'</span>, $e-><span class="code-function">getMessage</span>());
+    }
+    <span class="code-keyword">return</span> <span class="code-keyword">$this</span>-><span class="code-function">view</span>(<span class="code-string">'api/index'</span>);
+}</code></pre>
+                    </div>
+                </div>
+
+                <div class="col-md-12">
+                    <div class="code-container">
+                        <div class="code-header">
+                            <div class="code-dots">
+                                <div class="dot red"></div><div class="dot yellow"></div><div class="dot green"></div>
+                            </div>
+                            <div class="code-title">index.php</div>
+                        </div>
+                        <pre><code><span class="code-comment">&lt;!-- 1. Gestión de Alertas Flash --&gt;</span>
+<span class="code-keyword">&lt;?php</span> 
+$errorMsg = $request-><span class="code-function">getFlash</span>(<span class="code-string">'error'</span>);
+$successMsg = $request-><span class="code-function">getFlash</span>(<span class="code-string">'success'</span>);
+<span class="code-keyword">?&gt;</span>
+
+<span class="code-keyword">&lt;?php if</span> ($errorMsg): <span class="code-keyword">?&gt;</span>
+    <span class="code-keyword">&lt;?php</span> <span class="code-function">component</span>(<span class="code-string">'Alert'</span>, [<span class="code-string">'type'</span> => <span class="code-string">'error'</span>, <span class="code-string">'message'</span> => $errorMsg]); <span class="code-keyword">?&gt;</span>
+<span class="code-keyword">&lt;?php endif; ?&gt;</span>
+
+<span class="code-keyword">&lt;?php if</span> ($successMsg): <span class="code-keyword">?&gt;</span>
+    <span class="code-keyword">&lt;?php</span> <span class="code-function">component</span>(<span class="code-string">'Alert'</span>, [<span class="code-string">'type'</span> => <span class="code-string">'success'</span>, <span class="code-string">'message'</span> => $successMsg]); <span class="code-keyword">?&gt;</span>
+<span class="code-keyword">&lt;?php endif; ?&gt;</span>
+
+<span class="code-comment">&lt;!-- 2. Formulario de Consulta --&gt;</span>
+&lt;<span class="code-keyword">form</span> <span class="code-function">method</span>=<span class="code-string">"POST"</span> <span class="code-function">action</span>=<span class="code-string">"/api/buscar"</span>&gt;
+    &lt;<span class="code-keyword">input</span> <span class="code-function">type</span>=<span class="code-string">"text"</span> <span class="code-function">name</span>=<span class="code-string">"dni"</span> <span class="code-function">maxlength</span>=<span class="code-string">"8"</span> <span class="code-function">required</span>&gt;
+    &lt;<span class="code-keyword">button</span> <span class="code-function">type</span>=<span class="code-string">"submit"</span>&gt;Consultar&lt;/<span class="code-keyword">button</span>&gt;
+&lt;/<span class="code-keyword">form</span>&gt;</code></pre>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- Sección de Vistas -->
     <section class="code-section">
         <div class="container">
