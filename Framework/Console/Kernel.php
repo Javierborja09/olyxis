@@ -7,6 +7,7 @@ class Kernel {
         'init'            => \Framework\Console\Commands\InitCommand::class,
         'serve'           => \Framework\Console\Commands\ServeCommand::class,
         'make:controller' => \Framework\Console\Commands\MakeControllerCommand::class,
+        'load:db' => \Framework\Console\Commands\LoadDatabasesCommand::class,
         'make:crud'       => \Framework\Console\Commands\MakeCrudCommand::class,
         'make:model'       => \Framework\Console\Commands\MakeModelCommand::class,
         'route:list'      => \Framework\Console\Commands\RouteListCommand::class,
